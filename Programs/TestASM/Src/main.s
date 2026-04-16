@@ -11,10 +11,8 @@
 main
 	LDR		R1,=Ten
 	LDR		R2,=Five
-	ADD		[R1], R3
-	ADD		[R2], R3
+	ADD		R3, [R1]
+	ADD		R3, [R2]
+Ten		DCD 0x10
+Five 	DCD	0x5
 	END
-
-
-Ten		DCD 10
-Five 	DCD	5
