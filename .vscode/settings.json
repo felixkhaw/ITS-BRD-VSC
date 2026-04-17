@@ -117,7 +117,7 @@
   "cmake.ignoreCMakeListsMissing": true,
   "C_Cpp_Runner.msvcBatchPath": "",
   "clangd.arguments": [
-    "--compile-commands-dir=/home/huc01/Projects/ITS-BRD-VSC/Programs/TestASM/out/TestASM/ITSboard_Assembly/Debug"
+    "--compile-commands-dir=/home/huc01/Projects/ITS-BRD-VSC/Programs/A1ASM/out/A1ASM/ITSboard_Assembly/Debug"
   ],
   "debug.hideSlowPreLaunchWarning": true,
   "debug.showInStatusBar": "never",
