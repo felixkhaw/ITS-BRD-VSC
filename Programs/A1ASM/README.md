@@ -1,7 +1,7 @@
-# Protokoll und Gedankengänge
-*Aufgabe:* A1
-*Modul:* GT
-*Student:* Felix Knupper
+# Protokoll und Gedankengänge  
+*Aufgabe:* A1  
+*Modul:* GT  
+*Student:* Felix Knupper  
 ---
 
 **Nachfolgend werden Notizen mit N[1...n] aufgeführt.**
