@@ -11,5 +11,4 @@ Student: *Felix Knupper*
 Es ist ungewohnt eine so große Erweiterung zu benutzen von der ich nur Teile verstehe.
 
 *N2:*
-Beim Weiterarbeiten habe ich Probleme mit den Branches gehabt und einen Merge-Konflikt. Ich frage mich was genau das tag macht oder um genauer, was der Befehl git tag "" auslöst.
-
+Beim Weiterarbeiten habe ich Probleme mit den Branches gehabt und einen Merge-Konflikt. Ich frage mich was genau das tag macht oder um genauer, was der Befehl git tag "" auslöst. Außerdem habe ich heute eine Frage im Forum bzw. in der GT Gruppe gestellt weil mir noch nicht klar ist wie es stattfinden soll das wir also ich und mein Praktikumspartner zusammen arbeiten aber getrennt abgeben sollen. Weil es ja nur einen Readme.md in dem Projekt gibt. Entweder wir müssen zusammen ander Readme schreiben für das Protokoll.[Noch nicht fertig]
