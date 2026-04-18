@@ -117,7 +117,11 @@
   "cmake.ignoreCMakeListsMissing": true,
   "C_Cpp_Runner.msvcBatchPath": "",
   "clangd.arguments": [
+<<<<<<< HEAD
     "--compile-commands-dir=/home/huc01/Projects/ITS-BRD-VSC/Programs/A1ASM/out/A1ASM/ITSboard_Assembly/Debug"
+=======
+    "--compile-commands-dir=/home/luc02/Projects/ITS-BRD-VSC/Programs/A1ASM/out/A1ASM/ITSboard_Assembly/Debug"
+>>>>>>> 202199a (Commit um zu pullen weil weiter arbeiten auf dem Laptop)
   ],
   "debug.hideSlowPreLaunchWarning": true,
   "debug.showInStatusBar": "never",

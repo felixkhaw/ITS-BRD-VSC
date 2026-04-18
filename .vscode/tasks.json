@@ -24,6 +24,15 @@
             "label": "virtual-hardware.run: Run Program"
         },
         {
+            "label": "CMSIS Load+Run",
+            "problemMatcher": [],
+            "dependsOn": [
+                "CMSIS Load",
+                "CMSIS Run"
+            ],
+            "dependsOrder": "sequence"
+        },
+        {
             "label": "CMSIS Erase",
             "type": "shell",
             "command": "pyocd",
@@ -95,15 +104,6 @@
                 "--log",
                 "*.cbuild_run,*server=info"
             ],
-            "problemMatcher": []
-        },
-        {
-            "label": "CMSIS Load+Run",
-            "dependsOn": [
-                "CMSIS Load",
-                "CMSIS Run"
-            ],
-            "dependsOrder": "sequence",
             "problemMatcher": []
         },
         {
