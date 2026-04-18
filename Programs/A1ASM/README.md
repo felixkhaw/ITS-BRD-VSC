@@ -16,3 +16,6 @@ Aber ich habe noch keine Antwort und kann nicht 100% sagen ob ich auf diesem Rep
 
 *N3:*
 Zum Thema Breakpoints setzen habe ich herausgefunden dass man nur begrenzt Breakpoints setzen kann. Schritt für Schritt durchlaufen geht so oder so.
+
+*N4:*
+Man kann nicht in dem Editor einfach R1 -> add watch machen. Man muss wenn in der Registerliste ein Register zu watch Liste hinzufügen.
