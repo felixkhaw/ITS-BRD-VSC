@@ -22,3 +22,10 @@ Man kann nicht in dem Editor einfach R1 -> add watch machen. Man muss wenn in de
 
 *N4:*
 Nach dem Befehl: "LDR     R6, =GPIO_D_SET" landet 1073875992 im R6 in D6 tut sich nichts. LDR scheint ohne nähere Angaben etwas einfach zu laden. Was mir auffällt ist das 1073875992 keine Binäre oder Hexzahl ist. Das Label wurde mit = geladen. Anscheindend sind Speicheradressen Ganzezahlen.
+
+*N5:*
+Bei dem Befehl:  
+```
+MOV     R0, #0x01           ; load mask 0b0001
+```
+Im Anschluss des Befehls steht im Register r0 eine 1. Ich frage mich was eine load mask im Kommentar bedeuten soll oder was eine Maske ist. Ich gehe davon aus das 0b Binär bedeuten soll, aber ich bin mir nicht sicher.
