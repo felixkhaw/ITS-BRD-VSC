@@ -21,4 +21,4 @@ Zum Thema Breakpoints setzen habe ich herausgefunden dass man nur begrenzt Break
 Man kann nicht in dem Editor einfach R1 -> add watch machen. Man muss wenn in der Registerliste ein Register zu watch Liste hinzufügen.
 
 *N4:*
-Nach dem Befehl: "LDR     R6, =GPIO_D_SET" landet 1073875992 im R6 in D6 tut sich nichts. LDR scheint ohne nähere Angaben etwas einfach zu laden. Was mir auffällt ist das 1073875992 keine Binäre oder Hexzahl ist.
+Nach dem Befehl: "LDR     R6, =GPIO_D_SET" landet 1073875992 im R6 in D6 tut sich nichts. LDR scheint ohne nähere Angaben etwas einfach zu laden. Was mir auffällt ist das 1073875992 keine Binäre oder Hexzahl ist. Das Label wurde mit = geladen. Anscheindend sind Speicheradressen Ganzezahlen.
