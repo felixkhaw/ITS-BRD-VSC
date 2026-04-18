@@ -11,4 +11,5 @@ Student: *Felix Knupper*
 Es ist ungewohnt eine so große Erweiterung zu benutzen von der ich nur Teile verstehe.
 
 *N2:*
+Beim Weiterarbeiten habe ich Probleme mit den Branches gehabt und einen Merge-Konflikt. Ich frage mich was genau das tag macht oder um genauer, was der Befehl git tag "" auslöst.
 
