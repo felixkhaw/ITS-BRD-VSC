@@ -58,3 +58,24 @@ Dem Wert von PERIPH_BASE wird die Hexzahl 0x00020000 hinzuaddiert.
 
 Vermutung: 
 PERIPH_BASE definiert wo oder ab welcher Adresse das Programm anfängt.
+
+*STRB*:
+Der Befehl STRB "Store Register Byte" speichert ein Byte also lädt den Wert in größe eines Bytes in einen den Speicher.
+
+STRB Register, Zielspeicher
+
+Der Ausdruck [R6] bedeutet greife auf Speicher an Adresse R6 zu.
+
+*LDR*:
+Der Befehl LDR *Load Register* lädt einen Wert aus dem Speicher in ein Register.
+
+---
+
+*N7:*
+Es gibt Teile die ich noch nicht vollständig verstehe. Auf jeden Fall werden die LEDs über die Bits gesteuert.
+
+Das heisst  durch 0000 0000 0000 1111 werden die ersten 4 LEDs angesprochen.
+
+Was in R6 steht schaltet die LEDs an und was in R7 steht schaltet sie aus.
+
+Aber warum?
