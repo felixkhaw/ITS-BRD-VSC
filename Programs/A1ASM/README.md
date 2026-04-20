@@ -29,3 +29,21 @@ Bei dem Befehl:
 MOV     R0, #0x01           ; load mask 0b0001
 ```
 Im Anschluss des Befehls steht im Register r0 eine 1. Ich frage mich was eine load mask im Kommentar bedeuten soll oder was eine Maske ist. Ich gehe davon aus das 0b Binär bedeuten soll, aber ich bin mir nicht sicher.
+
+*N6:*
+
+Ziel der Aufgabe ist alle LEDs aufeinmal anzustellen. 
+
+Befehle:
+
+*equ:*
+Durch den Befehl equ kann eine Konstante definiert werden. Definition eines Labeln
+
+Beispiel:
+
+```
+PERIPH_BASE         equ 0x40000000
+```
+
+Die Hexzahl 0x40000000 wird dem Label PERIPH_BASE zugewiesen und steht dem Programm unter diesem Namen zur Verfügung.
+
