@@ -30,11 +30,11 @@ main
     nop                         ; no operation
     LDR     R6, =GPIO_D_SET     ; get address of the GPIO data set register
     LDR     R7, =GPIO_D_CLR     ; get address of the GPIO data clear register
-    MOV R0, #0xF                ; Entspricht  0000 0000 0000 1111
+    MOV R0, #0xF                ; Entspricht  0000 0000 0000 1111, meint die ersten 5 LEDs
 
     ; Set LED
-    STR    R0, [R6]
-    STR    R0, [R7]
+    STR    R0, [R6]             ; lädt den Inhalt von R0 in den speicher von R6
+    STR    R0, [R7]             ; lädt den Inhalt von R0 in den speicher von R7
     b .
     
     ALIGN
