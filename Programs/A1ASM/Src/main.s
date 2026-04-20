@@ -30,12 +30,37 @@ main
     nop                         ; no operation
     LDR     R6, =GPIO_D_SET     ; get address of the GPIO data set register
     LDR     R7, =GPIO_D_CLR     ; get address of the GPIO data clear register
-    MOV R0, #0xF                ; Entspricht  0000 0000 0000 1111, meint die ersten 5 LEDs
-
-    ; Set LED
-    STR    R0, [R6]             ; lädt den Inhalt von R0 in den speicher von R6
-    STR    R0, [R7]             ; lädt den Inhalt von R0 in den speicher von R7
-    b .
+    MOV     R0, #0x01           ; load mask 0b0001
+    MOV     R1, #0x02           ; load mask 0b0010
+    MOV     R2, #0x40           ; load mask 0b0100
+    MOV     R3, #0x80           ; load mask 0b1000
+    MOV     R8, #0x03           ; Endzustand
     
+    ; Set LED new
+    ; MOV R0, #0xF                ; Entspricht  0000 1111
+    
+    ; STR    R0, [R6]             ; lädt den Inhalt von R0 in den speicher von R6
+    ; STR    R0, [R7]             ; lädt den Inhalt von R0 in den speicher von R7
+    ; b .
+
+    ; Ich brauch 1000 0000 = 0x8D
+
+    ;    0000 0011 = 0x03
+    
+    ; Set LED
+    ; STRB    R2, [R6]    ; switch on LED D14 (richtig)
+    ; STRB    R3, [R6]    ; switch on LED D15 (richtig)
+    ; STRB    R0, [R6]    ; switch on LED D08 (richtig)
+    ; STRB    R0, [R7]    ; switch off LED D08 (richtig)
+    ; STRB    R0, [R6]    ; switch on LED D08 (richtig)
+    ; STRB    R1, [R6]    ; switch on LED D09 (richtig)
+    ; STRB    R2, [R7]    ; switch off LED D14 (richtig)
+    ; STRB    R3, [R7]    ; switch off LED D15 (richtig)
+    
+    ;MOV     R0, [R6]    ; LED D8 on
+    ;ADD     R1, R0
+    STRB     R8, [R6]
+    b .
+
     ALIGN
     END

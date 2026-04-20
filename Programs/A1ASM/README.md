@@ -73,9 +73,13 @@ Der Befehl LDR *Load Register* lädt einen Wert aus dem Speicher in ein Register
 
 *N7:*
 Es gibt Teile die ich noch nicht vollständig verstehe. Auf jeden Fall werden die LEDs über die Bits gesteuert.
-
 Das heisst  durch 0000 0000 0000 1111 werden die ersten 4 LEDs angesprochen.
-
 Was in R6 steht schaltet die LEDs an und was in R7 steht schaltet sie aus.
 
 Aber warum?
+---
+*N9:*
+
+Problem: Breakpoints funktionieren noch nicht.
+Lösung:
+---
