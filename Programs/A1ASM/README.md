@@ -37,7 +37,7 @@ Ziel der Aufgabe ist alle LEDs aufeinmal anzustellen.
 Befehle:
 
 *equ:*
-Durch den Befehl equ kann eine Konstante definiert werden. Definition eines Labeln
+Durch den Befehl equ kann eine Konstante definiert werden. Definition eines Labels.
 
 Beispiel:
 
@@ -47,3 +47,14 @@ PERIPH_BASE         equ 0x40000000
 
 Die Hexzahl 0x40000000 wird dem Label PERIPH_BASE zugewiesen und steht dem Programm unter diesem Namen zur Verfügung.
 
+---
+
+```
+AHB1PERIPH_BASE     equ (PERIPH_BASE + 0x00020000)
+```
+
+Das Lebel AHB1PERIPH_BASE wird definiert.
+Dem Wert von PERIPH_BASE wird die Hexzahl 0x00020000 hinzuaddiert.
+
+Vermutung: 
+PERIPH_BASE definiert wo oder ab welcher Adresse das Programm anfängt.
