@@ -30,21 +30,30 @@ main
     nop                         ; no operation
     LDR     R6, =GPIO_D_SET     ; get address of the GPIO data set register
     LDR     R7, =GPIO_D_CLR     ; get address of the GPIO data clear register
-    MOV     R0, #0x01           ; load mask 0b0001
-    MOV     R1, #0x02           ; load mask 0b0010
-    MOV     R2, #0x40           ; load mask 0b0100
-    MOV     R3, #0x80           ; load mask 0b1000
-    MOV     R8, #0x03           ; Endzustand
+    ; MOV     R0, #0x01           ; load mask 0b0001
+    ; MOV     R1, #0x02           ; load mask 0b0010
+    ; MOV     R2, #0x40           ; load mask 0b0100
+    ; MOV     R3, #0x80           ; load mask 0b1000
+    MOV     R3, #0x83           ; 1000 0011 = 0x83
     
+    ; Lösung 1
     ; Set LED new
-    ; MOV R0, #0xF                ; Entspricht  0000 1111
-    
+    ; MOV R0, #0xF                ; Entspricht  0000 1111 zum testen                    
     ; STR    R0, [R6]             ; lädt den Inhalt von R0 in den speicher von R6
     ; STR    R0, [R7]             ; lädt den Inhalt von R0 in den speicher von R7
     ; b .
 
-    ; Ich brauch 1000 0000 = 0x8D
+    ; Lösungsansatz 2
+    ; Bits schrittweise addieren und Ergebnis in R6 schieben (Nicht vollständig durchdacht)
+    ; MOV     R0, [R6]    ; LED D8 on
+    ; MOV     R1, R8      ; R1 in R8
+    ; ADD     R2, R8      ; Addiere R2 zu R8
+    ; STRB     R8, [R6]
+    ; b .
 
+
+    ; Gedanken zur Übersetzung von Binär in Hex
+    ; Ich brauch 1000 0000 = 0x8D
     ;    0000 0011 = 0x03
     
     ; Set LED
@@ -55,11 +64,10 @@ main
     ; STRB    R0, [R6]    ; switch on LED D08 (richtig)
     ; STRB    R1, [R6]    ; switch on LED D09 (richtig)
     ; STRB    R2, [R7]    ; switch off LED D14 (richtig)
-    ; STRB    R3, [R7]    ; switch off LED D15 (richtig)
-    
-    ;MOV     R0, [R6]    ; LED D8 on
-    ;ADD     R1, R0
-    STRB     R8, [R6]
+    ; STRB    R3, [R7]    ; switch off LED D15 (richtig) Endzustand=D8, D9, D15 on => 10000011
+
+    ; Lösung 1.1
+    STRB    R3, [R6]    ; lädt Inhalt von R3 in Speicher von R6
     b .
 
     ALIGN
