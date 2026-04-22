@@ -121,9 +121,9 @@ Parallel zu den Themen im Studium ist mir die Struktur eines Protokolls durch de
 
 **N12:**
 
-**Problem:** Notizeinträge fehlen.
-**Grund**:  Beim lösen eines Merge Konfliktes entstanden
-**Lösung:**  In die commit History gehen und fehlende Einträge per Hand kopieren.
-**Erkenntnis:** Ich verstehe den Merge Konflikt noch nicht und wie man ihn korrekt löst
+**Problem:** Notizeinträge fehlen.  
+**Grund**:  Beim lösen eines Merge Konfliktes entstanden  
+**Lösung:**  In die commit History gehen und fehlende Einträge per Hand kopieren.  
+**Erkenntnis:** Ich verstehe den Merge Konflikt noch nicht und wie man ihn korrekt löst  
 
 ---
