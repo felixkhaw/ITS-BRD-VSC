@@ -97,21 +97,33 @@ Was in R6 steht schaltet die LEDs an und was in R7 steht schaltet sie aus.
 Aber warum?
 
 Problem: Breakpoints funktionieren noch nicht richtig.
-Lösung: Kaya hat mir gezeigt dass ich in den Einstellungen von VSCode Breakpoints in jedem Dateitypen aktivieren muss
+Lösung: Kaya hat mir gezeigt dass ich in den Einstellungen von VSCode Breakpoints in jedem Dateitypen aktivieren muss  
+
 ---
-*N10:*
+
+**N10:**
 
 - Gestern hat mir jemand im Tutorium noch eine gute Methode gezeigt wie einfach oder relativ einfach Binäre Zahlen in Hex übersetzen kann.
 - Ich habe noch ein paar Fragen bezüglich einiger Register und das Mapping aber an sich habe ich viel gelernt durch die Aufgabe und muss noch etwas ausprobieren. Als nächstes hatte ich als Idee mal einer for schleife auszuprobieren welche nach und nach alles Bits setzt.
 ---
-**N9:**
+**N11:**
 
 Parallel zu den Themen im Studium ist mir die Struktur eines Protokolls durch den Kopf gegangen. Ich denke es macht Sinn sich eine zeitlang an Folgende Struktur zu halten.
 
 
 *<Vorlage für Protokoll Eintrag>*  
-**Problem:** Breakpoints funktionieren noch nicht.
+**Problem:**
+**Grund:**
 **Lösung:**  
 **Erkenntnis:**
+
+---
+
+**N12:**
+
+**Problem:** Notizeinträge fehlen.
+**Grund**:  Beim lösen eines Merge Konfliktes entstanden
+**Lösung:**  In die commit History gehen und fehlende Einträge per Hand kopieren.
+**Erkenntnis:** Ich verstehe den Merge Konflikt noch nicht und wie man ihn korrekt löst
 
 ---
