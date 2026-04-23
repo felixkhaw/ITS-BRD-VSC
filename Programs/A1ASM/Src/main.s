@@ -95,6 +95,11 @@ LDR (Laden)
 
     ; Lösung 1.1
     STRB    R3, [R6]    ; lädt Inhalt von R3 in Speicher von R6
+    ; STRB    R3, [R7]    ; switch off LED D15 (richtig)
+    
+    ;MOV     R0, [R6]    ; LED D8 on
+    ;ADD     R1, R0
+    STRB     R8, [R6] ; (falsch) -> sind nur die Lampen 8 und 9
     b .
 
     ALIGN
