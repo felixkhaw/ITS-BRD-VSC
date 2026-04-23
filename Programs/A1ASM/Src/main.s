@@ -35,6 +35,33 @@ main
     ; MOV     R2, #0x40           ; load mask 0b0100
     ; MOV     R3, #0x80           ; load mask 0b1000
     MOV     R3, #0x83           ; 1000 0011 = 0x83
+
+; WarmUp
+
+a   DCB     4
+b   DCW     5
+c   DCD     0   
+
+; addieren nur auf registern
+
+LDR     R0, =a ; steht die Adresse von a in R0
+LDR     R0, =a ;
+LDRB    R1, [R0] ;(Wort=4 Byte)
+LDRH    R2, [R0] ; 
+ADD     R3, R1, R3
+LDR     R0, =c
+STR     R3, [R0]
+
+STR (Speichern)
+LDR (Laden)
+
+    MOV     R8, #0b0010
+    MOV     R9, #0b0011
+    ADD     R10, R8
+    ADD     R10, R9
+    IT      
+  
+
     
     ; Lösung 1
     ; Set LED new
