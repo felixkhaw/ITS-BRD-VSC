@@ -32,7 +32,7 @@ Anw03:
 ```
 ldrb    R3,[R0,#1]      ; Anw03
 ```
-Lädt den Inhalt von R0, mit einem Offset(von links gesehen) von einem Byte, in R3.
+Lädt den Inhalt von R0, mit einem Offset(von rechts gesehen) von einem Byte, in R3.
 Anw04:
 
 Anw05:
