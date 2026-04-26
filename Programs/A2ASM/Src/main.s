@@ -16,8 +16,8 @@ ConstByteA  EQU 0xaffe
     
 ;* We need some data to work on
     AREA DATA, DATA, align=2    
-VariableA   DCW 0xbeef
-VariableB   DCW 0x1234
+VariableA   DCW 0xbeef  ; 1011 1100 1100 1101
+VariableB   DCW 0x1234  ; DCW (Define constant word)
 
 ;* We need minimal memory setup of InRootSection placed in Code Section 
     AREA  |.text|, CODE, READONLY, ALIGN = 3    

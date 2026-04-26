@@ -15,10 +15,12 @@ ldr     R0,=VariableA   ; Anw01
 ```
 - Lädt die Speicheradresse des Labels in das Register **R0**
 - ldr lädt ohne Begrenzung alle Bitstellen 
+- Nachdem Befehl steht in R0 0x2000000c
+- Nachdem R0 zur watchlist hinzugefügt wurde steht dort 536870924
 
-*Nachdem Befehl steht 536870924 in speicheradresse 0x2000000c*
+Das bringt mich zu der Frage was genau 536870924 ist oder was in R0 steht.
+Als Dezimalzahl interpretiert ist 0xbeef 48879.
 
-Was genau macht:
 ```
 VariableA   DCW 0xbeef
 ```
