@@ -19,17 +19,20 @@ ldr     R0,=VariableA   ; Anw01
 - Nachdem R0 zur watchlist hinzugefügt wurde steht dort 536870924
 - Das bringt mich zu der Frage was genau 536870924 ist oder was in R0 steht.
 - Als Dezimalzahl interpretiert ist 0xbeef 48879.
-- Durch die Referenzierung = auf das Label steht eine Speicheradresse in R0. Zum erkennen des Wertes muss die Adresse dereferinziert werden.
+- **Durch die Referenzierung = auf das Label steht eine Speicheradresse in R0. Zum erkennen des Wertes muss die Adresse dereferinziert werden.**
 
 Anw02:
 ```
 ldrb    R2,[R0]         ; Anw02
 ```
-Der Typ B des ldr Befehl lädt ein Byte ohne Zeichen. Das heisst alle 8 Bits stehen zur Verfügung. Angefangen bei a0(Liddle endian)
+Der Typ B des ldr Befehl lädt ein Byte ohne Zeichen. Das heisst alle 8 Bits (Oder zwei Nibble) stehen zur Verfügung. Angefangen bei a0(Liddle endian)
 Das heisst der der Wert wird derefernziert und in R2 geladen.
 
 Anw03:
-
+```
+ldrb    R3,[R0,#1]      ; Anw03
+```
+Lädt den Inhalt von R0, mit einem Offset(von links gesehen) von einem Byte, in R3.
 Anw04:
 
 Anw05:
