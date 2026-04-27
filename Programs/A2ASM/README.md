@@ -77,9 +77,4 @@ https://developer.arm.com/documentation/ddi0597/2026-03/Base-Instructions/ORR--O
 ```
 strh    R2,[R0]         ; Anw06
 ```
-Lädt ein halb Wort (16 Bit | 2 Byte) der Adresse von R0
-
-Frage: warum macht man das?
-1. Die Adresse ist nicht der Wert
-2. Von einer 32 Bit Adresse sind 16 Bit nicht mehr die Adresse des Speichers
-E: Also warum macht man das?
+Speichert ein halb Wort (16 Bit | 2 Byte) in die Adresse von R0
