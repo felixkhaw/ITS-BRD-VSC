@@ -44,14 +44,14 @@ lsl (Logical Shift Left): verschiebt die Bits nach links um einen angegebenen We
 
 Dadurch ist eine Multiplikation möglich. Eine Stelle nach Links vergrößert die Zahl um den Faktor 2.
 
-0001 = 1
-0010 = 2
-0100 = 4
-1000 = 8
-0001 0000 = 16
-0010 0000 = 32
-0100 0000 = 64
-1000 0000 = 128
+0001 = 1  
+0010 = 2  
+0100 = 4  
+1000 = 8  
+0001 0000 = 16  
+0010 0000 = 32  
+0100 0000 = 64  
+1000 0000 = 128  
 
 (Z.31)Anw05:
 ```
