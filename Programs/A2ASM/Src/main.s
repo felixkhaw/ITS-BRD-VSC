@@ -44,9 +44,11 @@ main
     
 ;* Change value from x1234 to x4321
     ldr     R1,=VariableB   ; Anw09
-    ldrh    R6,[R1]         ; Anw0A
+    ldr    R6,[R1]         ; Anw0A
     mov     R7, #0x30ED     ; Anw0B
     add     R6, R6, R7      ; Anw0C
+    rev16   R9, R6
+    strh    R9, [R1]
     ; strh    R5,[R1]         ; Anw0D
     rev16   R8, R5
     strh    R8, [R0]

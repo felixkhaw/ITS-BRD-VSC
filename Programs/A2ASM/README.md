@@ -83,6 +83,16 @@ R3  0xbe
 Speicher &VariableA  
 0x2000000c	ef	be	34	12	00	00	00	00	00	00	00	00	00	00	00	00
 
-Speicher &VariableB  
-0x2000000e	34	12	00	00	00	00	00	00	00	00	00	00	00	00	00	00
 ---
+
+Zeile 34
+
+**mov     R5,#ConstByteA  ; Anw07**
+
+R0  0x2000000c  
+R2  0xefbe   
+R3  0xbe  
+R5  0xaffe  
+
+Speicher &VariableA
+0x2000000c	ef	be	34	12	00	00	00	00	00	00	00	00	00	00	00	00
