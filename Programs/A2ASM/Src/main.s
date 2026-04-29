@@ -31,7 +31,13 @@ main
     lsl     R2, #8          ; Anw04
     orr     R2, R3          ; Anw05
     strh    R2,[R0]         ; Anw06 
-    
+
+    ; Für direktes schreiben in den Speicher
+    ; mov R2, #0x200000...
+    ; mov R3, #19
+    ; str R3, [R2]
+    ; ldr R2, =0x.....    
+
 ;* const in var
     mov     R5,#ConstByteA  ; Anw07
     strh    R5,[R0]         ; Anw08
@@ -41,7 +47,9 @@ main
     ldrh    R6,[R1]         ; Anw0A
     mov     R7, #0x30ED     ; Anw0B
     add     R6, R6, R7      ; Anw0C
-    strh    R6,[R1]         ; Anw0D
+    ; strh    R5,[R1]         ; Anw0D
+    rev16   R8, R5
+    strh    R8, [R0]
     b .                     ; Anw0E
     
     ALIGN
