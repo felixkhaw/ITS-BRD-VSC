@@ -1,6 +1,6 @@
 CompileFlags:
   CompilationDatabase: >-
-    /home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/out/A3ASM/ITSboard_Assembly/Debug
+    /home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/out/A3ASM/ITSboard_Assembly/Debug
   Add:
     - "-D_ILP32=1\r\n"
     - "-D_USE_STATIC_INLINE=1\r\n"
@@ -412,24 +412,24 @@ CompileFlags:
     - "-D__thumb2__=1\r\n"
     - "-D__thumb__=1\r\n"
     - '-D__ARMCOMPILER_LIBCXX=1'
-    - '-I/home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/Inc'
+    - '-I/home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/Inc'
     - >-
-      -I/home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/../../stm32cubef4/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+      -I/home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/../../stm32cubef4/Drivers/CMSIS/Device/ST/STM32F4xx/Include
     - >-
-      -I/home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/../../stm32cubef4/Drivers/CMSIS/Include
+      -I/home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/../../stm32cubef4/Drivers/CMSIS/Include
     - >-
-      -I/home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/../../stm32cubef4/Drivers/STM32F4xx_HAL_Driver/Inc
+      -I/home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/../../stm32cubef4/Drivers/STM32F4xx_HAL_Driver/Inc
     - >-
-      -I/home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/../../stm32cubef4/Drivers/BSP/STM32F4xx_Nucleo_144
+      -I/home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/../../stm32cubef4/Drivers/BSP/STM32F4xx_Nucleo_144
     - >-
-      -I/home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/../../stm32cubef4/Utilities/Fonts
+      -I/home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/../../stm32cubef4/Utilities/Fonts
     - >-
-      -I/home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/../../DisplayWaveshare/Inc
+      -I/home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/../../DisplayWaveshare/Inc
     - >-
-      -I/home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/../../ITS_BRD_LIB/Utilities/AddFonts
+      -I/home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/../../ITS_BRD_LIB/Utilities/AddFonts
     - >-
-      -I/home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/tmp/A3ASM.Debug+ITSboard_Assembly
+      -I/home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/tmp/A3ASM.Debug+ITSboard_Assembly
     - >-
-      -I/home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/RTE/_Debug_ITSboard_Assembly
-    - '-I/home/luc02/.cache/arm/packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include'
-    - '-I/home/luc02/Projects/ITS-BRD-VSC/Programs/A3ASM/../../ITS_BRD_LIB/Inc'
+      -I/home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/RTE/_Debug_ITSboard_Assembly
+    - '-I/home/huc01/.cache/arm/packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include'
+    - '-I/home/huc01/Projects/ITS-BRD-VSC/Programs/A3ASM/../../ITS_BRD_LIB/Inc'
