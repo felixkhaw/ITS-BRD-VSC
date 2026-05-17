@@ -1,5 +1,8 @@
 # PrimzahlenSieb
 
-Ich habe versucht mit draw.io ein Ablauf-Diagramm zu erstellen. Folgende Dinge sind mir überhaupt nicht klar:
-- Was soll ich in die Stationen schreiben z.b. bei einer For-Schleife, laut Beispielen i < 1000 ?
-- Gibt es Vorgaben für Elemente. Input, Output, Entscheidung?
+Derzeitige todo's bis zum Praktikum:
+- Pseudocode verbessern
+    - Das Thema Pseudocode ist mir noch nicht 100% klar dazu die Frage: ist Pseudocode in eigener Sprache oder schon code?
+- Bis jetzt ist die Aufgabe noch nicht 100% gelöst in meinem Java-Code benutzte ich modulo und den gibt es nicht in Assembler
+außerdem fehlt noch das herausstreichen der Primzahlen ab ihrem Quadrat
+- Grafische-Darstellung des Speichers siehe Aufgabe
