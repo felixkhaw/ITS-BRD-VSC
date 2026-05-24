@@ -8,7 +8,7 @@ Base
 
 ; Reservieren eines 4 Byte Arrays mit Werten
 zahlen              FILL    1000, 0x01
-                    DCB     0x00 // Terminierungsvariable
+                    DCB     0xFF // Terminierungsvariable
 
 ; dem Programm verfügbar machen
                     EXPORT zahlen
@@ -40,7 +40,7 @@ main            PROC
 for_zahlen      // Sprungziel 
 until_zahlen    
                 ldrb  r1, [r0]      ; Lade Wert aus Adress r0
-                cmp   r1, #0        ; Prüfe ob Terminator erreicht ist
+                cmp   r1, #0xFF        ; Prüfe ob Terminator erreicht ist
                 beq   enddo_zahlen  ; Springe wenn Terminator erreicht ist -> r2=0
 do_zahlen       
                 // Code
@@ -61,10 +61,19 @@ enddo_zahlen
 ; ******************
 ; FOR Vielfaches
 ; ******************
+;   r0 -> Zeiger zahlen
+;   r1 -> Wert zahlen
+;   r2 -> Primzahl
+;   r3 -> Zeiger vielfaches
+;   r4 -> Wert vielfaches
+
 for_vielfaches      // Sprungziel
-until_vielfaches    cpm   r4, 0x00  
-do_vielfaches       
-                // Setzte bei Adresse x in Zahlen Wert auf 0x00
+until_vielfaches
+                ldrb r4, [r3]
+                cmp  r4, #2
+                beq enddo_vielfaches
+do_vielfaches   
+                ldrb r4, [
 step_vielfaches     add r4,r4, #1
 enddo_vielfaches
 
