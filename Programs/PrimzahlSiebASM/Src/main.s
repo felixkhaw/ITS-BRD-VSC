@@ -34,26 +34,31 @@ main            PROC
                 ldr  r3,=zahlen    ; Start Adresse von Zahlen
 
 ; ******************
-; FOR-Zahlen
+; FOR Zahlen
 ; Info -> Counter ist nicht nötig wegen Terminierungsvariable
 ; ******************
 for_zahlen      // Sprungziel 
 until_zahlen    
                 ldrb  r1, [r0]      ; Lade Wert aus Adress r0
-                cmp   r1, #0        ; Prüfe oder Terminator erreicht ist
+                cmp   r1, #0        ; Prüfe ob Terminator erreicht ist
                 beq   enddo_zahlen  ; Springe wenn Terminator erreicht ist -> r2=0
 do_zahlen       
                 // Code
                 // Aufruf von If-Struktur
-step_zahlen     add r0,r0, #1
+step_zahlen     
+                add r0,r0, #1
+                b until_zahlen
 enddo_zahlen
 
 if_gestrichen   // Wert ist 0x01 -> then
 then_gestrichen // starte for-vielfaches
 endif_gestrichen
 
-; Noch keine Fehler Korrektur
-for_vielfaches      mov   r5, 0x00      
+; ******************
+; FOR Vielfaches
+; ******************
+
+for_vielfaches      // Sprungziel
 until_vielfaches    cpm   r4, 0x00  
 do_vielfaches       
                 // Setzte bei Adresse x in Zahlen Wert auf 0x00
