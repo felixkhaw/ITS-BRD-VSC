@@ -23,7 +23,7 @@ zahlen              FILL    1000, 0x01
                 EXTERN initITSboard
 
 ; Start der main Schleife des Programmes
-; r0 -> Zeiger, r1 -> Counter, r2 -> Wert
+; r0 -> Zeiger, r1 -> Counter, r2 -> Wert, r3 -> Primzahl
 main            PROC
                 bl    initITSboard                 ; HW Initialisieren
                 ldrb  r0,=zahlen    ; Start Adresse von Zahlen
