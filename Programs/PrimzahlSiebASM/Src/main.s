@@ -46,8 +46,11 @@ do_zahlen
                 // Code
                 // Aufruf von If-Struktur
               
-if_gestrichen   // Wert ist 0x01 -> then
-then_gestrichen // starte for-vielfaches
+if_gestrichen
+                cmp r1, #1
+                bne endif_gestrichen
+then_gestrichen 
+                // starte for-vielfaches
 endif_gestrichen
 
 step_zahlen     
@@ -55,12 +58,9 @@ step_zahlen
                 b until_zahlen
 enddo_zahlen
 
-
-
 ; ******************
 ; FOR Vielfaches
 ; ******************
-
 for_vielfaches      // Sprungziel
 until_vielfaches    cpm   r4, 0x00  
 do_vielfaches       
