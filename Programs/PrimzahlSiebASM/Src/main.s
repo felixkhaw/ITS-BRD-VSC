@@ -24,36 +24,43 @@ zahlen              FILL    1000, 0x01
 
 ; Start der main Schleife des Programmes
 ;   r0 -> Zeiger zahlen
-;   r1 -> Counter zahlen
-;   r2 -> Wert zahlen
-;   r3 -> Primzahl
-;   r4 -> Zeiger vielfaches
-;   r5 -> Counter vielfaches
-;   r6 -> Wert vielfaches
+;   r1 -> Wert zahlen
+;   r2 -> Primzahl
+;   r3 -> Zeiger vielfaches
+;   r4 -> Wert vielfaches
 main            PROC
-                bl    initITSboard                 ; HW Initialisieren
-                ldrb  r0,=zahlen    ; Start Adresse von Zahlen
-                ldrb  r4,=zahlen    ; Start Adresse von Zahlen
+                bl    initITSboard ; HW Initialisieren
+                ldr  r0,=zahlen    ; Start Adresse von Zahlen
+                ldr  r4,=zahlen    ; Start Adresse von Zahlen
                 ldrb  r2, [r0]
                 mov   r1, 0x00      ; Initialisieren des Counters
 
-for-zahlen      mov   r0, 0x00      
-until-zahlen    cpm   r2, 0x00   
-do-zahlen       
-                // If Struktur aufrufen 
-step-zahlen     add r1,r1, #1
-enddo-zahlen
+; ******************
+; FOR-Zahlen
+; Info -> Counter ist nicht nötig wegen Terminierungsvariable
+; ******************
+for_zahlen      // Sprungziel 
+until_zahlen    
+                ldrb  r1, [r0]      ; Lade Wert aus Adress r0
+                cmp   r1, #0        ; Prüfe oder Terminator erreicht ist
+                beq   enddo_zahlen  ; Springe wenn Terminator erreicht ist -> r2=0
+do_zahlen       
+                // Code
+                // Aufruf von If-Struktur
+step_zahlen     add r0,r0, #1
+enddo_zahlen
 
-if-gestrichen   // Wert ist 0x01 -> then
-then-gestrichen // starte for-vielfaches
-endif-gestrichen
+if_gestrichen   // Wert ist 0x01 -> then
+then_gestrichen // starte for-vielfaches
+endif_gestrichen
 
-for-vielfaches      mov   r5, 0x00      
-until-vielfaches    cpm   r4, 0x00  
-do-vielfaches       
+; Noch keine Fehler Korrektur
+for_vielfaches      mov   r5, 0x00      
+until_vielfaches    cpm   r4, 0x00  
+do_vielfaches       
                 // Setzte bei Adresse x in Zahlen Wert auf 0x00
-step-vielfaches     add r4,r4, #1
-enddo-vielfaches
+step_vielfaches     add r4,r4, #1
+enddo_vielfaches
 
 
 forever         b   forever
