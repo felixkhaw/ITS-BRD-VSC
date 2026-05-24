@@ -10,6 +10,9 @@ Base
 zahlen              FILL    1000, 0x01
                     DCB     0xFF // Terminierungsvariable
 
+primzahlen          FILL    500, 0
+                    DCB     0xFF
+
 ; dem Programm verfügbar machen
                     EXPORT zahlen
 
@@ -29,10 +32,12 @@ zahlen              FILL    1000, 0x01
 ;   r3 -> Zeiger Vielfaches
 ;   r4 -> Wert Vielfaches
 ;   r5 -> Sprung Vielfaches
+;   r6 -> Start primzahl
 main            PROC
                 bl    initITSboard ; HW Initialisieren
                 ldr  r0,=zahlen    ; Start Adresse von Zahlen
                 add  r0,r0, #2
+                ldr  r6,=primzahl
 
 ; ******************
 ; FOR Zahlen
@@ -65,10 +70,11 @@ enddo_zahlen
 ;   r3 -> Zeiger Vielfaches
 ;   r4 -> Wert Vielfaches
 ;   r5 -> Sprung Vielfaches
+;   r6 -> Start Primzahl
 
 for_vielfaches      // Sprungziel
 until_vielfaches
-                cmp r4, #1000
+                cmp 
                 blt enddo_vielfaches
 do_vielfaches   
                 r3, =zahlen
@@ -83,3 +89,29 @@ enddo_vielfaches
 forever         b   forever
                 ENDP
                 END
+
+; Sequentieller Ablauf nach Beendigung der ersten beiden Scheifen in zahlen stehen gestrichen die Primzahlen
+                ldr  r0,=zahlen
+
+; Ausgabe der Primzahlen in primzahl Array
+; for_primzahl     // Sprungziel
+; until_primzahl
+;                cmp   r0, #0xFF
+;                beq   enddo_primzahl
+; do_primzahl  
+; if_primzahl
+;                ldrb r1,[r0]
+;                cmp r1, #1
+;                bne endif_gestrichen
+; then_primzahl 
+;                b for_vielfaches
+; endif_primzahl        
+; step_primzahl     
+;                add r0,r0, #1 
+;                b until_primzahl
+; enddo_primzahl
+;                b step_primzahl
+
+; forever         b   forever
+;                ENDP
+;                END
