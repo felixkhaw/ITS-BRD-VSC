@@ -44,6 +44,10 @@ do-zahlen
 step-zahlen     add r1,r1, #1
 enddo-zahlen
 
+if-gestrichen   // Wert ist 0x01 -> then
+then-gestrichen // starte for-vielfaches
+endif-gestrichen
+
 for-vielfaches      mov   r5, 0x00      
 until-vielfaches    cpm   r4, 0x00  
 do-vielfaches       
