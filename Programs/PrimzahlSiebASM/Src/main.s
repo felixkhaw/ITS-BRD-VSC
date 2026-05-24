@@ -43,21 +43,18 @@ until_zahlen
                 ldrb  r1, [r0]      ; Lade Wert aus Adress r0
                 cmp   r1, #0xFF     ; Prüfe ob Terminator erreicht ist
                 beq   enddo_zahlen  ; Springe wenn Terminator erreicht ist -> r2=0
-do_zahlen       
-                // Code
-                // Aufruf von If-Struktur
-              
+do_zahlen   
 if_gestrichen
                 cmp r1, #1
                 bne endif_gestrichen
 then_gestrichen 
-                // starte for-vielfaches
+                b for_vielfaches
 endif_gestrichen
-
 step_zahlen     
                 add r0,r0, #1
                 b until_zahlen
-enddo_zahlen
+enddo_zahlen    
+                b step_zahlen
 
 ; ******************
 ; FOR Vielfaches
@@ -81,7 +78,7 @@ step_vielfaches
                 add r3, r3, r4
                 b until_vielfaches
 enddo_vielfaches
-
+                b step_vielfaches
 
 forever         b   forever
                 ENDP
