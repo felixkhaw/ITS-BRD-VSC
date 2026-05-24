@@ -70,14 +70,16 @@ enddo_zahlen
 ;   r5 -> Sprung Vielfaches
 
 for_vielfaches      // Sprungziel
-until_vielfaches    // Bei innerer For Schleife funktioniert die Terminate nicht zuverlässig
-                ldrb r4, [r3]
-                cmp  r4, #0xFF
-                beq enddo_vielfaches
+until_vielfaches
+                cmp r4, #1000
+                blt enddo_vielfaches
 do_vielfaches   
-                // noch nicht ganz klar
-
-step_vielfaches     // Durch Addition das nächste Vielfache
+                r3, =zahlen
+                sub r4, r0, r3 \\ Im ersten Durchlauf müsste 2 darin stehen
+                strb r4, [r3]
+step_vielfaches     
+                add r3, r3, r4
+                b until_vielfaches
 enddo_vielfaches
 
 
