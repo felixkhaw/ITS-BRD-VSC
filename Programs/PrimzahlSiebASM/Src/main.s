@@ -45,14 +45,17 @@ until_zahlen
 do_zahlen       
                 // Code
                 // Aufruf von If-Struktur
+              
+if_gestrichen   // Wert ist 0x01 -> then
+then_gestrichen // starte for-vielfaches
+endif_gestrichen
+
 step_zahlen     
                 add r0,r0, #1
                 b until_zahlen
 enddo_zahlen
 
-if_gestrichen   // Wert ist 0x01 -> then
-then_gestrichen // starte for-vielfaches
-endif_gestrichen
+
 
 ; ******************
 ; FOR Vielfaches
