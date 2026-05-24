@@ -70,7 +70,7 @@ enddo_zahlen
 ;   r5 -> Sprung Vielfaches
 
 for_vielfaches      // Sprungziel
-until_vielfaches    // Bei innerer For Schleife funktinoert die Terminate nicht zuverlässig
+until_vielfaches    // Bei innerer For Schleife funktioniert die Terminate nicht zuverlässig
                 ldrb r4, [r3]
                 cmp  r4, #0xFF
                 beq enddo_vielfaches
