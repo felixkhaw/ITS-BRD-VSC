@@ -31,9 +31,7 @@ zahlen              FILL    1000, 0x01
 main            PROC
                 bl    initITSboard ; HW Initialisieren
                 ldr  r0,=zahlen    ; Start Adresse von Zahlen
-                ldr  r4,=zahlen    ; Start Adresse von Zahlen
-                ldrb  r2, [r0]
-                mov   r1, 0x00      ; Initialisieren des Counters
+                ldr  r3,=zahlen    ; Start Adresse von Zahlen
 
 ; ******************
 ; FOR-Zahlen
