@@ -26,12 +26,13 @@ zahlen              FILL    1000, 0x01
 ;   r0 -> Zeiger zahlen
 ;   r1 -> Wert zahlen
 ;   r2 -> Primzahl
-;   r3 -> Zeiger vielfaches
-;   r4 -> Wert vielfaches
+;   r3 -> Zeiger Vielfaches
+;   r4 -> Wert Vielfaches
+;   r5 -> Sprung Vielfaches
 main            PROC
                 bl    initITSboard ; HW Initialisieren
                 ldr  r0,=zahlen    ; Start Adresse von Zahlen
-                ldr  r3,=zahlen    ; Start Adresse von Zahlen
+                add  r0,r0, #2
 
 ; ******************
 ; FOR Zahlen
@@ -40,7 +41,7 @@ main            PROC
 for_zahlen      // Sprungziel 
 until_zahlen    
                 ldrb  r1, [r0]      ; Lade Wert aus Adress r0
-                cmp   r1, #0xFF        ; Prüfe ob Terminator erreicht ist
+                cmp   r1, #0xFF     ; Prüfe ob Terminator erreicht ist
                 beq   enddo_zahlen  ; Springe wenn Terminator erreicht ist -> r2=0
 do_zahlen       
                 // Code
@@ -64,17 +65,19 @@ enddo_zahlen
 ;   r0 -> Zeiger zahlen
 ;   r1 -> Wert zahlen
 ;   r2 -> Primzahl
-;   r3 -> Zeiger vielfaches
-;   r4 -> Wert vielfaches
+;   r3 -> Zeiger Vielfaches
+;   r4 -> Wert Vielfaches
+;   r5 -> Sprung Vielfaches
 
 for_vielfaches      // Sprungziel
-until_vielfaches
+until_vielfaches    // Bei innerer For Schleife funktinoert die Terminate nicht zuverlässig
                 ldrb r4, [r3]
-                cmp  r4, #2
+                cmp  r4, #0xFF
                 beq enddo_vielfaches
 do_vielfaches   
-                ldrb r4, [
-step_vielfaches     add r4,r4, #1
+                // noch nicht ganz klar
+
+step_vielfaches     // Durch Addition das nächste Vielfache
 enddo_vielfaches
 
 
