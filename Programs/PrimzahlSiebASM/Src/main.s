@@ -71,7 +71,7 @@ step_zahlen
                 add r0,r0, #1
                 b until_zahlen
 enddo_zahlen    
-                ldr  r0,=zahlen
+; nach enddo_zahlen kann der code weiterlaufen
 
 ; Ausgabe der Primzahlen in primzahl Array
 ; for_primzahl
