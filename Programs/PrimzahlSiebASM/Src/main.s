@@ -57,7 +57,11 @@ for_vielfaches
 until_vielfaches
                 cmp r4, #1000
                 bgt enddo_vielfaches
-do_vielfaches   
+do_vielfaches
+                add r5, r2, r4
+                sub r5, r5, #1
+                mov r1, #0
+                strb r1, [r5]
 step_vielfaches     
                 add r3, r3, r4
                 b until_vielfaches
