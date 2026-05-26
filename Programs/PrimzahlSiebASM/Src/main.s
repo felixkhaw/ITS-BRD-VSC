@@ -53,11 +53,11 @@ then_gestrichen
 for_vielfaches
                 sub r3, r0, r2 ; Index
                 add r3, r3, #1 ; Für Zahl -> Index + 1
+                add r4,r3,r3   ; In r4 steht aktuelle Vielfaches
 until_vielfaches
-                cmp r3, #1000
+                cmp r4, #1000
                 bgt enddo_vielfaches
 do_vielfaches   
-                
 step_vielfaches     
                 add r3, r3, r4
                 b until_vielfaches
