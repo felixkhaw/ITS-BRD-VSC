@@ -42,7 +42,7 @@ for_zahlen
 until_zahlen    
                 ldrb  r1, [r0]      ; Lade Wert aus Adresse r0
                 cmp   r1, #0xFF     ; Prüfe ob Terminator erreicht ist
-                beq   enddo_zahlen  ; Springe wenn Terminator erreicht ist -> r2=0
+                beq   enddo_zahlen  ; Springe wenn Terminator erreicht ist
 do_zahlen   
 if_gestrichen
                 cmp r1, #1
