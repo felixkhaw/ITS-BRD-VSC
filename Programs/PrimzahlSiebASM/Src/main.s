@@ -37,7 +37,7 @@ main            PROC
                 bl    initITSboard ; HW Initialisieren
                 ldr  r0,=zahlen    ; Start Adresse von Zahlen
                 add  r0,r0, #1     ; Start von 2 also zweiter Speicherblock
-                ldr  r6,=primzahl
+                ldr  r6,=primzahlen
 for_zahlen
 until_zahlen    
                 ldrb  r1, [r0]      ; Lade Wert aus Adresse r0
