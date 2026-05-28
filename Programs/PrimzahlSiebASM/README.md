@@ -26,3 +26,19 @@ Ein wesentliches Problem, wenn man das so sagen kann, ist das die äußere Schle
 --- 
 
 Für mich als Erkenntnis muss ich sagen, dass das Konstrukt der Schleifen im Prinzip "nur" Labels sind zwischen denen gesprungen wird. Man könnte es genauso gut komplett anders bauen.
+
+---
+
+Änderung des Konzeptes
+
+;   r0 -> Startadresse zahlen
+;   r1 -> Wert bzw. Boolean an [r0]
+;   r2 -> Counter for zahlen
+;   r3 -> Boolean von Zahl
+;   r4 -> Aktuelles Vielfaches
+;   r5 -> Counter primzahlen
+;   r6 -> Startadresse primzahlen
+
+Die erste Idee den Counter bzw. den Index zur Laufzeit zu berechnen hat sich als zu umständlich herausgestellt und ich habe das Programm, während des Praktikums umgebaut.
+
+Jetzt halte ich in r0 z.B. permanent die Startadresse von zahlen und in r2 hab eich einen Counter. So kann ich besser die Schleife steuern bzw. die Abbruchbedingung und über den Offset auch besser speichern.

@@ -8,7 +8,7 @@ Base
 
 ; Reservieren eines 4 Byte Arrays mit Werten
 
-zahlen              FILL    1000, 0x01
+zahlen              FILL    1001, 0x01
                     DCB     0xFF    ; Terminierungsvariable
 primzahlen          FILL    500, 0
                     DCB     0xFF
@@ -23,63 +23,71 @@ primzahlen          FILL    500, 0
                 EXPORT main
                 EXTERN initITSboard
 
-;   r0 -> Zeiger auf aktuelle Zahl in zahlen
+;   r0 -> Startadresse zahlen
 ;   r1 -> Wert bzw. Boolean an [r0]
-;   r2 -> Startadresse zahlen
-;   r3 -> aktuelle Zahl / Schrittweise
-;   r4 -> aktuelles Vielfaches als Zahl
-;   r5 -> Zeiger auf aktuelles Vielfaches
-;   r6 -> Zeiger primzahl
+;   r2 -> Counter for zahlen
+;   r3 -> Boolean von Zahl
+;   r4 -> Aktuelles Vielfaches
+;   r5 -> Counter primzahlen
+;   r6 -> Startadresse primzahlen
 
 main            PROC
                 bl    initITSboard ; HW Initialisieren
-                ldr  r0,=zahlen    ; Start Adresse von Zahlen
-                add  r0,r0, #1     ; Start von 2 also zweiter Speicherblock
-                ldr  r6,=primzahlen
 for_zahlen
+                ldr  r0,=zahlen    ; Start Adresse von Zahlen
+                mov r1, #0x00
+                strb r1, [r0]
+                strb r1, [r0, #1]
+                mov  r2, #2
 until_zahlen    
-                ldrb  r1, [r0]      ; Lade Wert aus Adresse r0
-                cmp   r1, #0xFF     ; Prüfe ob Terminator erreicht ist
-                beq   enddo_zahlen  ; Springe wenn Terminator erreicht ist
+                cmp   r2, #1000   ; Prüfe ob Terminator erreicht ist
+                bgt   enddo_zahlen  ; Springe wenn Terminator erreicht ist
 do_zahlen   
+                ldrb r3, [r0, r2]
 if_gestrichen
-                cmp r1, #1
+                cmp r3, #1
                 bne endif_gestrichen
 then_gestrichen 
-                ldr r2, =zahlen
-                b for_vielfaches
 for_vielfaches
-                sub r3, r0, r2 ; Index
-                add r3, r3, #1 ; Für Zahl -> Index + 1
-                add r4,r3,r3   ; In r4 steht aktuelle Vielfaches
+                mul r4,r2,r2
 until_vielfaches
                 cmp r4, #1000
                 bgt enddo_vielfaches
 do_vielfaches
-                add r5, r2, r4
-                sub r5, r5, #1
-                mov r1, #0
-                strb r1, [r5]
+                
+                strb r1, [r0, r4]
 step_vielfaches     
-                add r3, r3, r4
+                add r4, r4, r2
                 b until_vielfaches
 enddo_vielfaches
 endif_gestrichen
 step_zahlen     
-                add r0,r0, #1
+                add r2,r2, #1
                 b until_zahlen
 enddo_zahlen    
 ; nach enddo_zahlen kann der code weiterlaufen
 
 ; Ausgabe der Primzahlen in primzahl Array
-; for_primzahl
-; until_primzahl
-; do_primzahl  
-; if_primzahl         
-; then_primzahl 
-; endif_primzahl        
-; step_primzahl     
-; enddo_primzahl
+for_primzahl
+                mov r2, #0  ; Counter zurücksetzen
+                mov r5, #0
+                ldr r6, =primzahlen
+until_primzahl
+                cmp r2, #1000
+                bgt enddo_primzahl
+do_primzahl
+if_primzahl   
+                ldrb r3, [r0, r2]
+                cmp r3, #1
+                bne endif_primzahl    
+then_primzahl
+                strb r2, [r6]
+                add  r6, r6, #1
+endif_primzahl        
+step_primzahl
+                add r2, r2, #1
+                b until_primzahl  
+enddo_primzahl
 
 forever         b   forever
                 ENDP
