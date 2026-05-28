@@ -7,16 +7,14 @@
 Base
 
 ; Reservieren eines 4 Byte Arrays mit Werten
+
 zahlen              FILL    1000, 0x01
                     DCB     0xFF    ; Terminierungsvariable
-
 primzahlen          FILL    500, 0
                     DCB     0xFF
-
 ; dem Programm verfügbar machen
                     EXPORT zahlen
-
-
+                    
 ;***********************************************
 ;* Beginn des Programms *
 ;************************************************
