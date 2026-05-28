@@ -64,8 +64,7 @@ endif_gestrichen
 step_zahlen     
                 add r2,r2, #1
                 b until_zahlen
-enddo_zahlen    
-; nach enddo_zahlen kann der code weiterlaufen
+enddo_zahlen
 
 ; Ausgabe der Primzahlen in primzahl Array
 for_primzahl
