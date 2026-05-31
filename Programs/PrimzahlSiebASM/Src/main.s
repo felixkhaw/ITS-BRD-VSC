@@ -8,7 +8,7 @@ Base
 
 ; Reservieren eines 4 Byte Arrays mit Werten
 
-zahlen              FILL    1001, 0x01
+zahlen              FILL    1001, 0x01, 1
 primzahlen          FILL    500, 0, 2
 ; dem Programm verfügbar machen
                     EXPORT zahlen
