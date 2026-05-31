@@ -9,9 +9,7 @@ Base
 ; Reservieren eines 4 Byte Arrays mit Werten
 
 zahlen              FILL    1001, 0x01
-                    DCB     0xFF    ; Terminierungsvariable
-primzahlen          FILL    500, 0
-                    DCB     0xFF
+primzahlen          FILL    500, 0, 2
 ; dem Programm verfügbar machen
                     EXPORT zahlen
                     
@@ -80,8 +78,8 @@ if_primzahl
                 cmp r3, #1
                 bne endif_primzahl    
 then_primzahl
-                strb r2, [r6]
-                add  r6, r6, #1
+                strh r2, [r6]
+                add  r6, r6, #2
 endif_primzahl        
 step_primzahl
                 add r2, r2, #1
