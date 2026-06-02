@@ -6,7 +6,7 @@ Dieses Programm berechnet alle Primzahlen von 0-1000 nach dem Algorithmus Sieb d
 
 ## Darstellung der Zahlen
 
-Die Zahlen werden zu Beginn nicht direkt als Werte gespeichert, sondern über den jeweiligen Index beziehungsweise den Counter der Schleifenvariable dargestellt, die durch das Boolean-Array iteriert.
+Die Zahlen werden zu Beginn nicht direkt als Werte gespeichert, sondern als boolean Wert.
 
 Beispiel:
 
