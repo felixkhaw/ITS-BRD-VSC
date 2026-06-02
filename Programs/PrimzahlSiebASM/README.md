@@ -17,7 +17,7 @@ Der Wert an der jeweiligen Stelle des Arrays gibt in Form eines boolean Wertes a
 - 1 = Zahl wurde nicht gestrichen und gilt weiterhin als mögliche Primzahl
 - 0 = Zahl wurde gestrichen und ist keine Primzahl
 
-Ablauf des Programms:
+## Ablauf des Programms
 
 1.  **Initialisierung**  
     - Alle Elemente im Array zahlen werden mit 1 initialisiert.
