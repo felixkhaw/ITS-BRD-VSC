@@ -26,8 +26,7 @@ primzahlen          FILL    500, 0, 2
 ;   r2 -> Counter for zahlen
 ;   r3 -> Boolean von Zahl
 ;   r4 -> Aktuelles Vielfaches
-;   r5 -> Counter primzahlen
-;   r6 -> Startadresse primzahlen
+;   r5 -> Adresse primzahlen
 
 main            PROC
                 bl    initITSboard ; HW Initialisieren
@@ -67,8 +66,7 @@ enddo_zahlen
 ; Ausgabe der Primzahlen in primzahl Array
 for_primzahl
                 mov r2, #0  ; Counter zurücksetzen
-                mov r5, #0
-                ldr r6, =primzahlen
+                ldr r5, =primzahlen
 until_primzahl
                 cmp r2, #1000
                 bgt enddo_primzahl
@@ -78,8 +76,8 @@ if_primzahl
                 cmp r3, #1
                 bne endif_primzahl    
 then_primzahl
-                strh r2, [r6]
-                add  r6, r6, #2
+                strh r2, [r5]
+                add  r5, r5, #2
 endif_primzahl        
 step_primzahl
                 add r2, r2, #1
