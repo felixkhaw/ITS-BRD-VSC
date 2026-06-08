@@ -36,6 +36,7 @@ TIM2_ERG			equ (TIM2_BASE + 0x14)   ; 16 Bit register, Bit 0 : 1 Restart Timer
 
 DEFAULT_BRIGHTNESS	DCW     800
 MY_TEXT				DCB		"Hold down different buttons from S0 to S7 and watch D8 to D15.", 0
+TEST_SPEICHER		DCW		0x00
 
 ;********************************************
 ; Code section, aligned on 8-byte boundery
@@ -62,10 +63,13 @@ main	PROC
 		ldr 	R1,=TIM2_ERG   			; Restart timer	
 		mov		R0,#0x01
 		strh	R0,[R1]					; Set UG Bit
-		MOV 	R0, #24
+		MOV 	R0, #24					
 		bl  	lcdSetFont
-		BL	    test
+		; BL	    test
 		; Ihre Initialisierung
+		MOV 	R0, #0
+		MOV 	R1, #5
+        BL      lcdGotoXY
 
 		; Simple test code
 		LDR 	R0,=MY_TEXT
@@ -74,7 +78,9 @@ superloop
 		; read buttons
 		LDR		R0,=GPIO_F_PIN
 		ldrh	R0,[R0]
-		and		R0,#0xFF   ; set bit 31 to 8 of R0 to 0 ; bit 7 to 0 do not change
+		LDR	    r5, =TEST_SPEICHER 
+		strh    r0, [r5]  ; Zum testen von Taster
+		and		R0, #0xFF   ; set bit 31 to 8 of R0 to 0 ; bit 7 to 0 do not change
 		; bit i for R0 is 1 <=> button S<i> not pressed (for 0 <= i <= 7)
 		; bit i for R0 is 0 <=> button S<i>     pressed (for 0 <= i <= 7)
 		
