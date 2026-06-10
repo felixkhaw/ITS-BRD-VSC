@@ -69,34 +69,66 @@ main	PROC
 		bl  	lcdSetFont
 		; Ihre Initialisierung
 		MOV 	R0, #0
-		MOV 	R1, #5
+		MOV 	R1, #6
         BL      lcdGotoXY
 
 		; Simple test code
-		LDR 	R0,=ZEIT
+		LDR 	R0,=NULL_ZEIT
 		BL  	lcdPrintS
 superloop
 		; read buttons
 		LDR		R0,=GPIO_F_PIN
 		ldrh	R0,[R0]
 		and		R0, #0xFF
-		LDR		R1,=GPIO_D_CLR
-		str		R0,[R1]
-		eor		R1,R1,#0xFF
-		LDR		R1,=GPIO_D_SET
-		str		R0,[R1]	
+		; LDR		R1,=GPIO_D_CLR
+		; str		R0,[R1]
+		eor		R0,R0,#0xFF
+		; LDR		R1,=GPIO_D_SET
+		; str		R0,[R1]	
+		LDR	    R3, =STATE
+		LDR	    R3, [R3]
+if_init
+		CMP	    R3,#0
+		BNE		endif_init
+then_init
+		BL	    init
+endif_init
+if_run
+		CMP	    R3,#1
+		BNE		endif_run
+then_run
+		BL	    run
+endif_run
+if_hold
+		CMP	    R3,#2
+		BNE		endif_hold
+then_hold
+		BL	    hold
+endif_hold
 		BAL		superloop				; End of superloop
 		ENDP
 
 init PROC	; Reset timer
-	LDR	    R0, =NULL_ZEIT
-	BL	    lcdPrintS
+	; LDR	    R0, =NULL_ZEIT
+	; BL	    lcdPrintS
+if_s7
+	CMP	    R0, #0x80
+	bne		endif_s7
+then_s7
+	LDR	    R3,=STATE
+	MOV	    R4,#1  
+	STRB    R4,[R3]
+endif_s7   
 	BX lr
 
 run PROC	; run the timer / again
-	LDR		R0,=GPIO_F_PIN
-	ldrh	R0,[R0]
-	and		R0, #0xFF
+	push {R0, LR}
+	ldr 	R0, =ZEIT
+	bl		lcdPrintS
+	LDR	    R3,=STATE
+	MOV	    R4,#0  
+	STRB    R4,[R3]
+	pop {R0, LR}
 	bx lr
 
 hold PROC	; stop the timer
