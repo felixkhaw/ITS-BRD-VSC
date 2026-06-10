@@ -35,7 +35,8 @@ TIM2_ERG			equ (TIM2_BASE + 0x14)   ; 16 Bit register, Bit 0 : 1 Restart Timer
 	AREA MyData, DATA, align = 2
 
 DEFAULT_BRIGHTNESS	DCW     800
-MY_TEXT				DCB		"Hold down different buttons from S0 to S7 and watch D8 to D15.", 0
+ZEIT				DCB		"00:00:00", 0
+TEST_SPEICHER		DCW		0x00
 
 ;********************************************
 ; Code section, aligned on 8-byte boundery
@@ -64,16 +65,20 @@ main	PROC
 		strh	R0,[R1]					; Set UG Bit
 		MOV 	R0, #24
 		bl  	lcdSetFont
-		BL	    test
 		; Ihre Initialisierung
-
+		mov		R0, #7
+		mov		R1, #5
+		bl lcdGotoXY
 		; Simple test code
-		LDR 	R0,=MY_TEXT
+		LDR 	R0,=ZEIT
 		BL  	lcdPrintS
 superloop
 		; read buttons
 		LDR		R0,=GPIO_F_PIN
 		ldrh	R0,[R0]
+		LDR	    R5, =TEST_SPEICHER
+		STRH    R0, [R5] 
+
 		and		R0,#0xFF   ; set bit 31 to 8 of R0 to 0 ; bit 7 to 0 do not change
 		; bit i for R0 is 1 <=> button S<i> not pressed (for 0 <= i <= 7)
 		; bit i for R0 is 0 <=> button S<i>     pressed (for 0 <= i <= 7)
@@ -89,10 +94,25 @@ superloop
 		BAL		superloop				; End of superloop
 		ENDP
 
-test PROC
-		MOV	    R0, #3
-		ADD	    R0, #3
-		BX lr
+inti PROC	; Reset timer
+	LDR		R0,=GPIO_F_PIN
+	ldrh	R0,[R0]
+	BX lr
+
+hold PROC	; stop the timer
+	LDR		R0,=GPIO_F_PIN
+	ldrh	R0,[R0]
+
+	bx lr
+
+run PROC	; run the timer / again
+	LDR		R0,=GPIO_F_PIN
+	ldrh	R0,[R0]
+	bx lr
+
+updateLCD PROC
+	bx lr
+
 ENDP
 
 		ALIGN
