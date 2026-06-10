@@ -35,12 +35,10 @@ TIM2_ERG			equ (TIM2_BASE + 0x14)   ; 16 Bit register, Bit 0 : 1 Restart Timer
 	AREA MyData, DATA, align = 2
 
 DEFAULT_BRIGHTNESS	DCW     800
-<<<<<<< HEAD
-ZEIT				DCB		"00:00:00", 0
-=======
-MY_TEXT				DCB		"Hold down different buttons from S0 to S7 and watch D8 to D15.", 0
->>>>>>> 21b8b66ef6df015e582ce860da6827b27cef5106
+ZEIT				DCB		"00:01.00", 0
+NULL_ZEIT			DCB		"00:00.00", 0
 TEST_SPEICHER		DCW		0x00
+STATE				DCB		0x00
 
 ;********************************************
 ; Code section, aligned on 8-byte boundery
@@ -69,19 +67,11 @@ main	PROC
 		strh	R0,[R1]					; Set UG Bit
 		MOV 	R0, #24					
 		bl  	lcdSetFont
-<<<<<<< HEAD
-		; Ihre Initialisierung
-		mov		R0, #7
-		mov		R1, #5
-		bl lcdGotoXY
-=======
-		; BL	    test
 		; Ihre Initialisierung
 		MOV 	R0, #0
 		MOV 	R1, #5
         BL      lcdGotoXY
 
->>>>>>> 21b8b66ef6df015e582ce860da6827b27cef5106
 		; Simple test code
 		LDR 	R0,=ZEIT
 		BL  	lcdPrintS
@@ -89,47 +79,32 @@ superloop
 		; read buttons
 		LDR		R0,=GPIO_F_PIN
 		ldrh	R0,[R0]
-<<<<<<< HEAD
-		LDR	    R5, =TEST_SPEICHER
-		STRH    R0, [R5] 
-
-		and		R0,#0xFF   ; set bit 31 to 8 of R0 to 0 ; bit 7 to 0 do not change
-=======
-		LDR	    r5, =TEST_SPEICHER 
-		strh    r0, [r5]  ; Zum testen von Taster
-		and		R0, #0xFF   ; set bit 31 to 8 of R0 to 0 ; bit 7 to 0 do not change
->>>>>>> 21b8b66ef6df015e582ce860da6827b27cef5106
-		; bit i for R0 is 1 <=> button S<i> not pressed (for 0 <= i <= 7)
-		; bit i for R0 is 0 <=> button S<i>     pressed (for 0 <= i <= 7)
-		
-		; switch LEDs off (button s<i> not pressed : LED D<�+8> switched off (for 0 <= i <= 7)
+		and		R0, #0xFF
 		LDR		R1,=GPIO_D_CLR
 		str		R0,[R1]
-		
-		; switch LEDs on (button s<i>      pressed : LED D<�+8> switched on  (for 0 <= i <= 7)
-		eor		R1,R1,#0xFF       ; toogle bit 0 to 7 of R1
+		eor		R1,R1,#0xFF
 		LDR		R1,=GPIO_D_SET
 		str		R0,[R1]	
 		BAL		superloop				; End of superloop
 		ENDP
 
-inti PROC	; Reset timer
-	LDR		R0,=GPIO_F_PIN
-	ldrh	R0,[R0]
+init PROC	; Reset timer
+	LDR	    R0, =NULL_ZEIT
+	BL	    lcdPrintS
 	BX lr
-
-hold PROC	; stop the timer
-	LDR		R0,=GPIO_F_PIN
-	ldrh	R0,[R0]
-
-	bx lr
 
 run PROC	; run the timer / again
 	LDR		R0,=GPIO_F_PIN
 	ldrh	R0,[R0]
+	and		R0, #0xFF
 	bx lr
 
-updateLCD PROC
+hold PROC	; stop the timer
+	LDR		R0,=GPIO_F_PIN
+	ldrh	R0,[R0]
+	str		R0,[R1]
+	eor		R1,R1,#0xFF
+
 	bx lr
 
 ENDP
