@@ -84,39 +84,39 @@ superloop
 
 ; Zustandsautomat
 		CMP	    R3,#0
-		BLEQ 	init
+		BLEQ	init
 		CMP	    R3,#1
-		BLEQ		run
+		BLEQ	run
 		CMP	    R3,#2
-		BLEQ		hold
+		BLEQ	hold
 		BAL		superloop				; End of superloop
 		ENDP
 
 init PROC	; Reset timer
-	CMP	    R0, #0x80
-	BNE		init_done		
-	LDR	    R3,=STATE
-	MOV	    R4,#1  
-	STRB    R4,[R3]
+		CMP	    R0, #0x80
+		BNE		init_done		
+		LDR	    R3,=STATE
+		MOV	    R4,#1  
+		STRB    R4,[R3]
 init_done 
-	BX lr
+		BX lr
 
 run PROC	; run the timer / again
-	PUSH {R0, LR}
-	LDR 	R0, =ZEIT
-	BL		lcdPrintS
-	LDR	    R3,=STATE
-	MOV	    R4,#0  
-	STRB    R4,[R3]
-	POP {R0, LR}
-	BX LR
+		PUSH {R0, LR}
+		LDR 	R0, =ZEIT
+		BL		lcdPrintS
+		LDR	    R3,=STATE
+		MOV	    R4,#0  
+		STRB    R4,[R3]
+		POP {R0, LR}
+		BX LR
 
 hold PROC	; stop the timer
-	LDR		R0,=GPIO_F_PIN
-	LDRH	R0,[R0]
-	STR		R0,[R1]
-	EOR		R1,R1,#0xFF
-	BX LR
+		LDR		R0,=GPIO_F_PIN
+		LDRH	R0,[R0]
+		STR		R0,[R1]
+		EOR		R1,R1,#0xFF
+		BX LR
 
 ENDP
 		ALIGN
