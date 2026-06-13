@@ -37,8 +37,7 @@ TIM2_ERG			equ (TIM2_BASE + 0x14)   ; 16 Bit register, Bit 0 : 1 Restart Timer
 DEFAULT_BRIGHTNESS	DCW     800
 ZEIT				DCB		"00:01.00", 0
 NULL_ZEIT			DCB		"00:00.00", 0
-TEST_SPEICHER		DCW		0x00
-STATE				DCB		0x00
+STATE				DCB		0
 
 ;********************************************
 ; Code section, aligned on 8-byte boundery
@@ -55,18 +54,18 @@ main	PROC
 
 		; Initialisierung der HW
 		BL		initITSboard
-		ldr   	r1, =DEFAULT_BRIGHTNESS
-		ldrh 	r0, [r1]
-		bl   	GUI_init
-		bl  	initTimer
-		ldr 	R1,=TIM2_PSC   			; Set pre scaler such that 1 timer tick represents 10 us
-		mov 	R0,#(90*10-1) 
-		strh	R0,[R1]
-		ldr 	R1,=TIM2_ERG   			; Restart timer	
-		mov		R0,#0x01
-		strh	R0,[R1]					; Set UG Bit
+		LDR   	r1, =DEFAULT_BRIGHTNESS
+		LDRH 	r0, [r1]
+		BL   	GUI_init
+		BL  	initTimer
+		LDR 	R1,=TIM2_PSC   			; Set pre scaler such that 1 timer tick represents 10 us
+		MOV 	R0,#(90*10-1) 
+		STRH	R0,[R1]
+		LDR 	R1,=TIM2_ERG   			; Restart timer	
+		MOV		R0,#0x01
+		STRH	R0,[R1]					; Set UG Bit
 		MOV 	R0, #24					
-		bl  	lcdSetFont
+		BL  	lcdSetFont
 		; Ihre Initialisierung
 		MOV 	R0, #0
 		MOV 	R1, #6
@@ -76,70 +75,49 @@ main	PROC
 		LDR 	R0,=NULL_ZEIT
 		BL  	lcdPrintS
 superloop
-		; read buttons
 		LDR		R0,=GPIO_F_PIN
-		ldrh	R0,[R0]
-		and		R0, #0xFF
-		; LDR		R1,=GPIO_D_CLR
-		; str		R0,[R1]
-		eor		R0,R0,#0xFF
-		; LDR		R1,=GPIO_D_SET
-		; str		R0,[R1]	
-		LDR	    R3, =STATE
-		LDR	    R3, [R3]
-if_init
+		LDRH	R0,[R0]
+		AND		R0, #0xFF
+		EOR		R0,R0,#0xFF
+		LDRB	R3, =STATE
+		LDRB	R3, [R3]
+
+; Zustandsautomat
 		CMP	    R3,#0
-		BNE		endif_init
-then_init
-		BL	    init
-endif_init
-if_run
+		BLEQ 	init
 		CMP	    R3,#1
-		BNE		endif_run
-then_run
-		BL	    run
-endif_run
-if_hold
+		BLEQ		run
 		CMP	    R3,#2
-		BNE		endif_hold
-then_hold
-		BL	    hold
-endif_hold
+		BLEQ		hold
 		BAL		superloop				; End of superloop
 		ENDP
 
 init PROC	; Reset timer
-	; LDR	    R0, =NULL_ZEIT
-	; BL	    lcdPrintS
-if_s7
 	CMP	    R0, #0x80
-	bne		endif_s7
-then_s7
+	BNE		init_done		
 	LDR	    R3,=STATE
 	MOV	    R4,#1  
 	STRB    R4,[R3]
-endif_s7   
+init_done 
 	BX lr
 
 run PROC	; run the timer / again
-	push {R0, LR}
-	ldr 	R0, =ZEIT
-	bl		lcdPrintS
+	PUSH {R0, LR}
+	LDR 	R0, =ZEIT
+	BL		lcdPrintS
 	LDR	    R3,=STATE
 	MOV	    R4,#0  
 	STRB    R4,[R3]
-	pop {R0, LR}
-	bx lr
+	POP {R0, LR}
+	BX LR
 
 hold PROC	; stop the timer
 	LDR		R0,=GPIO_F_PIN
-	ldrh	R0,[R0]
-	str		R0,[R1]
-	eor		R1,R1,#0xFF
-
-	bx lr
+	LDRH	R0,[R0]
+	STR		R0,[R1]
+	EOR		R1,R1,#0xFF
+	BX LR
 
 ENDP
-
 		ALIGN
 		END
