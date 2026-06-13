@@ -89,10 +89,10 @@ superloop
 		BLEQ	run
 		CMP	    R3,#2
 		BLEQ	hold
-		BAL		superloop				; End of superloop
+		BAL		superloop
 		ENDP
 
-init PROC	; Reset timer
+init PROC
 		CMP	    R0, #0x80
 		BNE		init_done		
 		LDR	    R3,=STATE
@@ -101,7 +101,7 @@ init PROC	; Reset timer
 init_done 
 		BX lr
 
-run PROC	; run the timer / again
+run PROC
 		PUSH {R0, LR}
 		LDR 	R0, =ZEIT
 		BL		lcdPrintS
@@ -111,7 +111,7 @@ run PROC	; run the timer / again
 		POP {R0, LR}
 		BX LR
 
-hold PROC	; stop the timer
+hold PROC
 		LDR		R0,=GPIO_F_PIN
 		LDRH	R0,[R0]
 		STR		R0,[R1]
