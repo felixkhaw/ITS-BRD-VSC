@@ -118,6 +118,11 @@ hold PROC	; stop the timer
 		EOR		R1,R1,#0xFF
 		BX LR
 
+time PROC
+		LDR	    R0, =TIMER
+		LDR	    R0, [R0]
+		BX LR
+
 ENDP
 		ALIGN
 		END
