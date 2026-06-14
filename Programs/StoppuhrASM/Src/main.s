@@ -132,7 +132,7 @@ min10_loop
 		LDR	    R2, =TICKS_10MIN
 		CMP	    R1, R2
 		BLT		min1_loop
-		SUB	    R0, R0, R2
+		SUB	    R1, R1, R2
 		; Zeit String ändern
 		; print_time	 
 min1_loop
