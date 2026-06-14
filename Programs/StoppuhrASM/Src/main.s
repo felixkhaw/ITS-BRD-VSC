@@ -78,7 +78,6 @@ main	PROC
 		LDR 	R0,=NULL_ZEIT
 		BL  	lcdPrintS
 superloop
-		BL	    time
 		LDR		R0,=GPIO_F_PIN
 		LDRH	R0,[R0]
 		AND		R0, #0xFF
@@ -125,43 +124,56 @@ hold PROC
 		ENDP
 
 time PROC
-		PUSH	{R1, R2, R3, LR}
+		PUSH	{R0, R1, R2, R3, LR}
 		LDR	    R1, =TIMER
 		LDR	    R1, [R1]
+		LDR     R0, =ZEIT
+		MOV     R3, #'0'
+        STRB    R3, [R0, #0]
+        STRB    R3, [R0, #1]
+        STRB    R3, [R0, #3]
+        STRB    R3, [R0, #4]
+        STRB    R3, [R0, #6]
+        STRB    R3, [R0, #7]
 min10_loop
 		LDR	    R2, =TICKS_10MIN
 		CMP	    R1, R2
 		BLT		min1_loop
 		SUB	    R1, R1, R2
-		; Zeit String ändern
-		; print_time
+		LDRB    R3, [R0]
+		ADD	    R3, R3, #1
+		STRB    R3, [R0]
 		B		min10_loop
 min1_loop
 		LDR	    R2, =TICKS_1MIN
 		CMP	    R1, R2
 		BLT		sec10_loop
 		SUB	    R1, R1, R2
-		; Zeit String ändern
-		; print_time
+		LDRB    R3, [R0, #1]
+		ADD	    R3, R3, #1
+		STRB    R3, [R0, #1]   
 		B		min1_loop
 sec10_loop
 		LDR	    R2, =TICKS_10SEC
 		CMP	    R1, R2
 		BLT		sec1_loop
 		SUB	    R1, R1, R2
-		; Zeit String ändern
-		; print_time
+		LDRB    R3, [R0, #3]
+		ADD	    R3, R3, #1
+		STRB    R3, [R0, #3]  
 		B		sec10_loop
 sec1_loop
 		LDR	    R2, =TICKS_1SEC
 		CMP	    R1, R2
 		BLT		done
 		SUB	    R1, R1, R2
-		; Zeit String ändern
-		; print_time
+		LDRB    R3, [R0, #4]
+		ADD	    R3, R3, #1
+		STRB    R3, [R0, #4]  
 		B		sec1_loop
 done
-		POP		{R1, R2, R3, LR}
+		BL  	lcdPrintS
+		POP		{R0, R1, R2, R3, LR}
 		BX LR
 		ENDP
 
