@@ -79,7 +79,7 @@ superloop
 		LDRH	R0,[R0]
 		AND		R0, #0xFF
 		EOR		R0,R0,#0xFF
-		LDRB	R3, =STATE
+		LDR	R3, =STATE
 		LDRB	R3, [R3]
 
 ; Zustandsautomat
@@ -100,6 +100,7 @@ init PROC
 		STRB    R4,[R3]
 init_done 
 		BX lr
+		ENDP
 
 run PROC
 		PUSH {R0, LR}
@@ -110,6 +111,7 @@ run PROC
 		STRB    R4,[R3]
 		POP {R0, LR}
 		BX LR
+		ENDP
 
 hold PROC
 		LDR		R0,=GPIO_F_PIN
@@ -117,11 +119,13 @@ hold PROC
 		STR		R0,[R1]
 		EOR		R1,R1,#0xFF
 		BX LR
+		ENDP
 
 time PROC
 		LDR	    R0, =TIMER
 		LDR	    R0, [R0]
 		BX LR
+		ENDP
 
 ENDP
 		ALIGN
