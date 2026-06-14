@@ -16,7 +16,10 @@ GPIO_D_CLR			equ	(GPIOD_BASE + 0x1A)
 TIMER				equ (TIM2_BASE + 0x24)   ; CNT : current time stamp (32 bit),  resolution
 TIM2_PSC			equ (TIM2_BASE + 0x28)   ; Prescaler  resolution
 TIM2_ERG			equ (TIM2_BASE + 0x14)   ; 16 Bit register, Bit 0 : 1 Restart Timer
-
+TICKS_10MIN     	EQU 60000000
+TICKS_1MIN      	EQU 6000000
+TICKS_10SEC     	EQU 1000000
+TICKS_1SEC      	EQU 100000
 
     EXTERN initITSboard
     EXTERN GUI_init
@@ -35,9 +38,10 @@ TIM2_ERG			equ (TIM2_BASE + 0x14)   ; 16 Bit register, Bit 0 : 1 Restart Timer
 	AREA MyData, DATA, align = 2
 
 DEFAULT_BRIGHTNESS	DCW     800
-ZEIT				DCB		"00:01.00", 0
+ZEIT				DCB		"00:00.00", 0
 NULL_ZEIT			DCB		"00:00.00", 0
 STATE				DCB		0
+
 
 ;********************************************
 ; Code section, aligned on 8-byte boundery
@@ -70,16 +74,16 @@ main	PROC
 		MOV 	R0, #0
 		MOV 	R1, #6
         BL      lcdGotoXY
-
 		; Simple test code
 		LDR 	R0,=NULL_ZEIT
 		BL  	lcdPrintS
 superloop
+		BL	    time
 		LDR		R0,=GPIO_F_PIN
 		LDRH	R0,[R0]
 		AND		R0, #0xFF
 		EOR		R0,R0,#0xFF
-		LDR	R3, =STATE
+		LDR		R3, =STATE
 		LDRB	R3, [R3]
 
 ; Zustandsautomat
@@ -104,8 +108,7 @@ init_done
 
 run PROC
 		PUSH {R0, LR}
-		LDR 	R0, =ZEIT
-		BL		lcdPrintS
+		BL	    time
 		LDR	    R3,=STATE
 		MOV	    R4,#0  
 		STRB    R4,[R3]
@@ -122,10 +125,27 @@ hold PROC
 		ENDP
 
 time PROC
-		LDR	    R0, =TIMER
-		LDR	    R0, [R0]
+		PUSH	{R1, R2, R3, LR}
+		LDR	    R1, =TIMER
+		LDR	    R1, [R1]
+min10_loop
+		LDR	    R2, =TICKS_10MIN
+		CMP	    R1, R2
+		BLT		min1_loop
+		SUB	    R0, R0, R2
+		; Zeit String ändern
+		; print_time	 
+min1_loop
+		POP		{R1, R2, R3, LR}
 		BX LR
 		ENDP
+
+; print_time
+;		PUSH	{R0, R1, R2, LR}
+;		POP		{R0, R1, R2, LR}
+;		BX LR
+;		ENDP
+
 
 ENDP
 		ALIGN
