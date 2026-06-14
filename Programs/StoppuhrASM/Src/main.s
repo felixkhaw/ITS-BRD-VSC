@@ -134,8 +134,33 @@ min10_loop
 		BLT		min1_loop
 		SUB	    R1, R1, R2
 		; Zeit String ändern
-		; print_time	 
+		; print_time
+		B		min10_loop
 min1_loop
+		LDR	    R2, =TICKS_1MIN
+		CMP	    R1, R2
+		BLT		sec10_loop
+		SUB	    R1, R1, R2
+		; Zeit String ändern
+		; print_time
+		B		min1_loop
+sec10_loop
+		LDR	    R2, =TICKS_10SEC
+		CMP	    R1, R2
+		BLT		sec1_loop
+		SUB	    R1, R1, R2
+		; Zeit String ändern
+		; print_time
+		B		sec10_loop
+sec1_loop
+		LDR	    R2, =TICKS_1SEC
+		CMP	    R1, R2
+		BLT		done
+		SUB	    R1, R1, R2
+		; Zeit String ändern
+		; print_time
+		B		sec1_loop
+done
 		POP		{R1, R2, R3, LR}
 		BX LR
 		ENDP
