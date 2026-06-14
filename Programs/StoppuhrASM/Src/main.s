@@ -172,6 +172,10 @@ sec1_loop
 		STRB    R3, [R0, #4]  
 		B		sec1_loop
 done
+		MOV     R0, #0      
+        MOV     R1, #6
+        BL      lcdGotoXY
+		LDR	    R0, =ZEIT 
 		BL  	lcdPrintS
 		POP		{R0, R1, R2, R3, LR}
 		BX LR
