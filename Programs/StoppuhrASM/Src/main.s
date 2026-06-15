@@ -20,6 +20,8 @@ TICKS_10MIN     	EQU 60000000
 TICKS_1MIN      	EQU 6000000
 TICKS_10SEC     	EQU 1000000
 TICKS_1SEC      	EQU 100000
+TICKS_10CENT		EQU	10000
+TICKS_1CENT			EQU 1000
 
     EXTERN initITSboard
     EXTERN GUI_init
@@ -39,6 +41,7 @@ TICKS_1SEC      	EQU 100000
 
 DEFAULT_BRIGHTNESS	DCW     800
 ZEIT				DCB		"00:00.00", 0
+ZEIT_ALT			DCB		"aa:aa.aa", 0
 NULL_ZEIT			DCB		"00:00.00", 0
 STATE				DCB		0
 
@@ -55,7 +58,6 @@ STATE				DCB		0
 	EXPORT main [CODE]
 	
 main	PROC
-
 		; Initialisierung der HW
 		BL		initITSboard
 		LDR   	r1, =DEFAULT_BRIGHTNESS
@@ -78,19 +80,24 @@ main	PROC
 		LDR 	R0,=NULL_ZEIT
 		BL  	lcdPrintS
 superloop
-		LDR		R0,=GPIO_F_PIN
-		LDRH	R0,[R0]
-		AND		R0, #0xFF
-		EOR		R0,R0,#0xFF
-		LDR		R3, =STATE
-		LDRB	R3, [R3]
-
+		MOV	    R0,#7 
+		LDR		R1,=GPIO_F_PIN
+		LDR	    R1, [R1] 
+		BL	    isButtonPressed
+		CMP	    R0, #0
+		BEQ	    notPressed
+		LDR	    R4, =STATE
+		MOV	    R3, #1 
+		STRB    R3, [R4]   
+notPressed
 ; Zustandsautomat
-		CMP	    R3,#0
+		LDR	    R4, =STATE
+		LDRB    R4, [R4] 
+		CMP	    R4,#0
 		BLEQ	init
-		CMP	    R3,#1
+		CMP	    R4,#1
 		BLEQ	run
-		CMP	    R3,#2
+		CMP	    R4,#2
 		BLEQ	hold
 		BAL		superloop
 		ENDP
@@ -108,9 +115,10 @@ init_done
 run PROC
 		PUSH {R0, LR}
 		BL	    time
-		LDR	    R3,=STATE
-		MOV	    R4,#0  
-		STRB    R4,[R3]
+		BL	    print_time
+		; LDR	    R3,=STATE
+		; MOV	    R4,#0  
+		; STRB    R4,[R3]
 		POP {R0, LR}
 		BX LR
 		ENDP
@@ -124,7 +132,7 @@ hold PROC
 		ENDP
 
 time PROC
-		PUSH	{R0, R1, R2, R3, LR}
+		PUSH	{R0-R3, LR}
 		LDR	    R1, =TIMER
 		LDR	    R1, [R1]
 		LDR     R0, =ZEIT
@@ -165,29 +173,84 @@ sec10_loop
 sec1_loop
 		LDR	    R2, =TICKS_1SEC
 		CMP	    R1, R2
-		BLT		done
+		BLT		cent10_loop
 		SUB	    R1, R1, R2
 		LDRB    R3, [R0, #4]
 		ADD	    R3, R3, #1
 		STRB    R3, [R0, #4]  
 		B		sec1_loop
+cent10_loop
+		LDR	    R2, =TICKS_10CENT
+		CMP	    R1, R2
+		BLT		cent1_loop
+		SUB	    R1, R1, R2
+		LDRB    R3, [R0, #6]
+		ADD	    R3, R3, #1
+		STRB    R3, [R0, #6]  
+		B		cent10_loop
+cent1_loop
+		LDR	    R2, =TICKS_1CENT
+		CMP	    R1, R2
+		BLT		done
+		SUB	    R1, R1, R2
+		LDRB    R3, [R0, #7]
+		ADD	    R3, R3, #1
+		STRB    R3, [R0, #7]  
+		B		cent1_loop
 done
-		MOV     R0, #0      
-        MOV     R1, #6
-        BL      lcdGotoXY
-		LDR	    R0, =ZEIT 
-		BL  	lcdPrintS
-		POP		{R0, R1, R2, R3, LR}
+		POP		{R0-R3, LR}
 		BX LR
 		ENDP
 
-; print_time
-;		PUSH	{R0, R1, R2, LR}
-;		POP		{R0, R1, R2, LR}
-;		BX LR
-;		ENDP
+; for(int i=0; zeit[i] != 0; i++)
+;   if (zeit[i] != zeitalt(i))
+;       cursor setzen
+;	   zeichen ausgeben
+;	   zeitalt[i]= zeit[i]
 
+print_time PROC
+		PUSH	{R4-R8, LR}
+for_sc 
+		MOV	    R4, #0 
+		LDR		R5, =ZEIT
+		LDR	    R7, =ZEIT_ALT 
+until_sc 
+		CMP	    R4, #8
+		BEQ		enddo_sc 
+do_sc		
+		LDR	    R6,[R5,R4]
+		LDR	    R8,[R7,R4]
+		CMP 	R6, R8
+		BEQ		do_nothing
+		STRB    R6, [R5,R4]
+		MOV     R0, R4      
+        MOV     R1, #6
+        BL      lcdGotoXY
+		MOV  	R0, R6
+		BL  	lcdPrintC
+do_nothing		
+step_sc
+		ADD	    R4, R4, #1
+		B	    until_sc
+enddo_sc
+		POP		{R4-R8, LR}
+		BX LR
+		ENDP
 
-ENDP
+; Param: R0 Button, R1 GPIO_F_PIN Inhalt
+; Return: R0 1-> pressed 0 -> not pressed
+isButtonPressed PROC
+		MOV	    R2,#1
+		LSL	    R2, R2, R0
+		AND	    R2, R1, R2
+		CMP	    R2, #0
+		BEQ		isPressed
+		MOV	    R0,#0
+		B	    endPressed 		
+isPressed
+		MOV	    R0, #1
+endPressed  
+		BX LR
+		ENDP
 		ALIGN
 		END
