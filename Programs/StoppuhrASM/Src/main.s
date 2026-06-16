@@ -80,17 +80,7 @@ main	PROC
 		LDR 	R0,=NULL_ZEIT
 		BL  	lcdPrintS
 superloop
-		MOV	    R0,#7 
-		LDR		R1,=GPIO_F_PIN
-		LDR	    R1, [R1] 
-		BL	    isButtonPressed
-		CMP	    R0, #0
-		BEQ	    notPressed
-		LDR	    R4, =STATE
-		MOV	    R3, #1 
-		STRB    R3, [R4]   
-notPressed
-; Zustandsautomat
+		BL      update_state
 		LDR	    R4, =STATE
 		LDRB    R4, [R4] 
 		CMP	    R4,#0
@@ -103,33 +93,37 @@ notPressed
 		ENDP
 
 init PROC
-		CMP	    R0, #0x80
-		BNE		init_done		
-		LDR	    R3,=STATE
-		MOV	    R4,#1  
-		STRB    R4,[R3]
-init_done 
-		BX lr
-		ENDP
+        PUSH    {R0-R2, LR}
+        LDR     R0, =TIM2_ERG
+        MOV     R1, #0x01
+        STRH    R1, [R0]
+        LDR     R0, =ZEIT
+        MOV     R1, #'0'
+        STRB    R1, [R0, #0]
+        STRB    R1, [R0, #1]
+        STRB    R1, [R0, #3]
+        STRB    R1, [R0, #4]
+        STRB    R1, [R0, #6]
+        STRB    R1, [R0, #7]
+        BL      print_time
+        POP     {R0-R2, LR}
+        BX      LR
+        ENDP
 
 run PROC
 		PUSH {R0, LR}
 		BL	    time
 		BL	    print_time
-		; LDR	    R3,=STATE
-		; MOV	    R4,#0  
-		; STRB    R4,[R3]
 		POP {R0, LR}
 		BX LR
 		ENDP
 
 hold PROC
-		LDR		R0,=GPIO_F_PIN
-		LDRH	R0,[R0]
-		STR		R0,[R1]
-		EOR		R1,R1,#0xFF
-		BX LR
-		ENDP
+        PUSH {R0-R1, LR}
+		; LED 
+        POP {R0-R1, LR}
+        BX LR
+        ENDP
 
 time PROC
 		PUSH	{R0-R3, LR}
@@ -218,17 +212,17 @@ until_sc
 		CMP	    R4, #8
 		BEQ		enddo_sc 
 do_sc		
-		LDR	    R6,[R5,R4]
-		LDR	    R8,[R7,R4]
+		LDRB	R6,[R5,R4]
+		LDRB	R8,[R7,R4]
 		CMP 	R6, R8
-		BEQ		do_nothing
-		STRB    R6, [R5,R4]
+		BEQ		next_char
+		STRB    R6, [R7,R4]
 		MOV     R0, R4      
         MOV     R1, #6
         BL      lcdGotoXY
 		MOV  	R0, R6
 		BL  	lcdPrintC
-do_nothing		
+next_char		
 step_sc
 		ADD	    R4, R4, #1
 		B	    until_sc
@@ -252,5 +246,61 @@ isPressed
 endPressed  
 		BX LR
 		ENDP
+
+update_state PROC
+        PUSH    {R0-R4, LR}
+        LDR     R4, =STATE
+        LDRB    R3, [R4]
+        LDR     R1, =GPIO_F_PIN
+        LDRH    R1, [R1]
+        CMP     R3, #0
+        BNE     check_running
+        MOV     R0, #7
+        BL      isButtonPressed
+        CMP     R0, #1
+        BNE     state_done
+        MOV     R3, #1
+        STRB    R3, [R4]
+        B       state_done
+check_running
+        CMP     R3, #1
+        BNE     check_hold
+        MOV     R0, #5
+        BL      isButtonPressed
+        CMP     R0, #1
+        BNE     running_check_s6
+        MOV     R3, #0
+        STRB    R3, [R4]
+        B       state_done
+running_check_s6
+        MOV     R0, #6
+        BL      isButtonPressed
+        CMP     R0, #1
+        BNE     state_done
+        MOV     R3, #2
+        STRB    R3, [R4]
+        B       state_done
+check_hold
+        CMP     R3, #2
+        BNE     state_done
+        MOV     R0, #5
+        BL      isButtonPressed
+        CMP     R0, #1
+        BNE     hold_check_s7
+        MOV     R3, #0
+        STRB    R3, [R4]
+        B       state_done
+hold_check_s7
+        MOV     R0, #7
+        BL      isButtonPressed
+        CMP     R0, #1
+        BNE     state_done
+
+        MOV     R3, #1
+        STRB    R3, [R4]
+state_done
+        POP     {R0-R4, LR}
+        BX      LR
+        ENDP
 		ALIGN
 		END
