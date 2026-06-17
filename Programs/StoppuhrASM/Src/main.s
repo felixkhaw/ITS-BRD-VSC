@@ -114,13 +114,16 @@ run PROC
 		PUSH {R0, LR}
 		BL	    time
 		BL	    print_time
+		MOV	    R0, #0x2
+		BL	    update_led 
 		POP {R0, LR}
 		BX LR
 		ENDP
 
 hold PROC
         PUSH {R0-R1, LR}
-		; LED 
+		MOV		R0,#0x1
+		BL	    update_led  
         POP {R0-R1, LR}
         BX LR
         ENDP
@@ -302,5 +305,35 @@ state_done
         POP     {R0-R4, LR}
         BX      LR
         ENDP
+
+; Param: R0 -> LED als Bitzahl
+; Funktion schaltet LEDs an in Abhängigkeit von STATE
+update_led PROC
+		PUSH	{R0-R4, LR}
+		LDR	    R1, =GPIO_D_SET
+		STRH	R0,[R1] 
+		POP		{R0-R4, LR}
+		BX	LR
+		ENDP
+
+; Param: R0 -> LED als Bitzahl
+; Funktion schaltet LEDs ab in Abhängigkeit von STATE
+clear_led PROC
+		PUSH	{R0-R4, LR}
+		LDR	    R1, =GPIO_D_CLR
+		STRH	R0,[R1] 
+		POP		{R0-R4, LR}
+		BX	LR
+		ENDP
+
+clear_all_led PROC
+		PUSH	{R0-R4, LR}
+		MOV	    R0, #0xFF 
+		LDR	    R1, =GPIO_D_CLR
+		STRH	R0,[R1] 
+		POP		{R0-R4, LR}
+		BX	LR
+		ENDP
+
 		ALIGN
 		END
