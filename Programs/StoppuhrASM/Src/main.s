@@ -73,7 +73,7 @@ main	PROC
 		MOV 	R0, #24					
 		BL  	lcdSetFont
 		; Ihre Initialisierung
-		MOV 	R0, #0
+		MOV 	R0, #10
 		MOV 	R1, #6
         BL      lcdGotoXY
 		; Simple test code
@@ -106,16 +106,19 @@ init PROC
         STRB    R1, [R0, #6]
         STRB    R1, [R0, #7]
         BL      print_time
+		BL		clearAllLED
         POP     {R0-R2, LR}
         BX      LR
         ENDP
 
 run PROC
 		PUSH {R0, LR}
-		BL	    time
+		BL	    timeCalc
 		BL	    print_time
+		MOV	    R0, #0x1
+		BL	    updateLED
 		MOV	    R0, #0x2
-		BL	    update_led 
+		BL	    clearLED
 		POP {R0, LR}
 		BX LR
 		ENDP
@@ -123,12 +126,14 @@ run PROC
 hold PROC
         PUSH {R0-R1, LR}
 		MOV		R0,#0x1
-		BL	    update_led  
+		BL	    updateLED
+		MOV		R0,#0x2
+		BL	    updateLED 
         POP {R0-R1, LR}
         BX LR
         ENDP
 
-time PROC
+timeCalc PROC
 		PUSH	{R0-R3, LR}
 		LDR	    R1, =TIMER
 		LDR	    R1, [R1]
@@ -220,7 +225,8 @@ do_sc
 		CMP 	R6, R8
 		BEQ		next_char
 		STRB    R6, [R7,R4]
-		MOV     R0, R4      
+		MOV     R0, R4
+		ADD	    R0, R0, #0xA     
         MOV     R1, #6
         BL      lcdGotoXY
 		MOV  	R0, R6
@@ -308,7 +314,7 @@ state_done
 
 ; Param: R0 -> LED als Bitzahl
 ; Funktion schaltet LEDs an in Abhängigkeit von STATE
-update_led PROC
+updateLED PROC
 		PUSH	{R0-R4, LR}
 		LDR	    R1, =GPIO_D_SET
 		STRH	R0,[R1] 
@@ -318,7 +324,7 @@ update_led PROC
 
 ; Param: R0 -> LED als Bitzahl
 ; Funktion schaltet LEDs ab in Abhängigkeit von STATE
-clear_led PROC
+clearLED PROC
 		PUSH	{R0-R4, LR}
 		LDR	    R1, =GPIO_D_CLR
 		STRH	R0,[R1] 
@@ -326,7 +332,7 @@ clear_led PROC
 		BX	LR
 		ENDP
 
-clear_all_led PROC
+clearAllLED PROC
 		PUSH	{R0-R4, LR}
 		MOV	    R0, #0xFF 
 		LDR	    R1, =GPIO_D_CLR
