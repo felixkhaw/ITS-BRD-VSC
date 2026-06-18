@@ -80,7 +80,7 @@ main	PROC
 		LDR 	R0,=NULL_ZEIT
 		BL  	lcdPrintS
 superloop
-		BL      update_state
+		; BL      update_state
 		LDR	    R4, =STATE
 		LDRB    R4, [R4] 
 		CMP	    R4,#0
@@ -107,6 +107,19 @@ init PROC
         STRB    R1, [R0, #7]
         BL      print_time
 		BL		clearAllLED
+; Anfangen den Button S7 abzufragen
+		MOV     R0, #7
+		LDR	    R1, =GPIO_F_PIN
+		LDRH    R1, [R1] 
+        BL      isButtonPressed
+if_S7_pressed
+        CMP     R0, #1
+        BNE     endif_S7_pressed
+then_S7_pressed
+		LDR	    R4, =STATE
+        MOV     R3, #1
+        STRB    R3, [R4]
+endif_S7_pressed
         POP     {R0-R2, LR}
         BX      LR
         ENDP
@@ -119,6 +132,32 @@ run PROC
 		BL	    updateLED
 		MOV	    R0, #0x2
 		BL	    clearLED
+; Anfangen den Button S6 abzufragen
+		MOV     R0, #6
+		LDR	    R1, =GPIO_F_PIN
+		LDRH    R1, [R1] 
+        BL      isButtonPressed
+if_S6_pressed
+        CMP     R0, #1
+        BNE     endif_S6_pressed
+then_S6_pressed
+		LDR	    R4, =STATE
+        MOV     R3, #2
+        STRB    R3, [R4]
+endif_S6_pressed
+; Anfangen den Button S5 abzufragen
+		MOV     R0, #5
+		LDR	    R1, =GPIO_F_PIN
+		LDRH    R1, [R1] 
+        BL      isButtonPressed
+if_S5_pressed
+        CMP     R0, #1
+        BNE     endif_S5_pressed
+then_S5_pressed
+		LDR	    R4, =STATE
+        MOV     R3, #0
+        STRB    R3, [R4]
+endif_S5_pressed
 		POP {R0, LR}
 		BX LR
 		ENDP
@@ -128,7 +167,33 @@ hold PROC
 		MOV		R0,#0x1
 		BL	    updateLED
 		MOV		R0,#0x2
-		BL	    updateLED 
+		BL	    updateLED
+; Anfangen den Button S7 abzufragen
+		MOV     R0, #7
+		LDR	    R1, =GPIO_F_PIN
+		LDRH    R1, [R1] 
+        BL      isButtonPressed
+if_S7_p
+        CMP     R0, #1
+        BNE     endif_S7_p
+then_S7_p
+		LDR	    R4, =STATE
+        MOV     R3, #1
+        STRB    R3, [R4]
+endif_S7_p
+; Anfangen den Button S5 abzufragen
+		MOV     R0, #5
+		LDR	    R1, =GPIO_F_PIN
+		LDRH    R1, [R1] 
+        BL      isButtonPressed
+if_S5_p
+        CMP     R0, #1
+        BNE     endif_S5_p
+then_S5_p
+		LDR	    R4, =STATE
+        MOV     R3, #1
+        STRB    R3, [R4]
+endif_S5_p
         POP {R0-R1, LR}
         BX LR
         ENDP
