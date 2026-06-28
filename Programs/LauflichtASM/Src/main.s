@@ -68,19 +68,30 @@ DelayTime   EQU     500
 
 Lauflicht   PROC     
 for_loop
-            LDR	    R3, =GPIO_E_SET
-            LDR	    R2, =GPIO_D_CLR 
+            LDR	    R5, =GPIO_E_SET
+            LDR	    R6, =GPIO_E_CLR
+            LDR	    R7, =GPIO_D_SET
+            LDR	    R8, =GPIO_D_CLR 
 until_loop
             CMP     R1, #0
             BEQ     enddo_loop
 do_loop
-            MOV	    R0, 0x80
-            STRH    R0, [R3]
-            PUSH    {R0-R3, LR}
+            ; hole obere Bits
+            MOV     R2, 0xFF00  ; Bitmaske
+            AND     R3, R0, R2
+            LSR	    R3, R3, #8 
+            STRH    R3, [R5]
+            ; hole untere Bits
+            MOV     R2, 0x00FF  ; Bitmaske
+            AND     R4, R0, R2
+            STRH    R4, [R7]
+            PUSH    {R0-R8, LR}
             LDR     R0, =DelayTime
             BL      delay
-            POP     {R0-R3, LR}
-            STRH    R0, [R2]
+            POP     {R0-R8, LR}
+            STRH    R3, [R6]
+            STRH    R4, [R8]
+            LSR     R0, R0, #1
 step_loop
             SUBS    R1, R1, #1
             B       until_loop
