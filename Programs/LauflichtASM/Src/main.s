@@ -91,7 +91,9 @@ do_loop
             POP     {R0-R8, LR}
             STRH    R3, [R6]
             STRH    R4, [R8]
+            TST     R0, #1
             LSR     R0, R0, #1
+            ORRNE   R0, R0, #0x8000
 step_loop
             SUBS    R1, R1, #1
             B       until_loop
