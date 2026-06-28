@@ -68,12 +68,13 @@ DelayTime   EQU     500
 
 Lauflicht   PROC     
 for_loop
-            LDR	    R3, =GPIO_D_SET
+            LDR	    R3, =GPIO_E_SET
             LDR	    R2, =GPIO_D_CLR 
 until_loop
             CMP     R1, #0
             BEQ     enddo_loop
 do_loop
+            MOV	    R0, 0x80
             STRH    R0, [R3]
             PUSH    {R0-R3, LR}
             LDR     R0, =DelayTime
@@ -97,7 +98,7 @@ InterTestDelay  EQU     4000
 main    PROC
         BL initITSboard
         LDR     R7, =TestPattern
-        MOV     R8, #0                  ; Laufindex Testpattern
+        MOV     R8, #0                 ; Laufindex Testpattern
 forever 
         CMP     R8, #3
         MOVGE   R8, #0
