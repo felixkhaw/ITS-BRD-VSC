@@ -68,39 +68,48 @@ DelayTime   EQU     500
 
 Lauflicht   PROC     
 for_loop
+            PUSH {R9, R10, LR}
+            MOV     R10, R1
+            MOV	    R9, R0 
+until_loop
+            CMP     R10, #0
+            BEQ     enddo_loop
+do_loop     
+
+            MOV	    R0, R9 
+            BL	    setLED
+            LDR     R0, =DelayTime
+            BL      delay
+            TST     R9, #1
+            LSR     R9, R9, #1
+            ORRNE   R9, R9, #0x8000
+step_loop
+            SUB    R10, R10, #1
+            B       until_loop
+enddo_loop  
+            POP {R9, R10, LR}  
+            BX LR
+            ENDP
+
+; Param: R0 Bitmuster
+setLED PROC
+            PUSH {R5-R8}
             LDR	    R5, =GPIO_E_SET
             LDR	    R6, =GPIO_E_CLR
             LDR	    R7, =GPIO_D_SET
             LDR	    R8, =GPIO_D_CLR 
-until_loop
-            CMP     R1, #0
-            BEQ     enddo_loop
-do_loop
-            ; hole obere Bits
-            MOV     R2, 0xFF00  ; Bitmaske
-            AND     R3, R0, R2
-            LSR	    R3, R3, #8 
-            STRH    R3, [R5]
-            ; hole untere Bits
-            MOV     R2, 0x00FF  ; Bitmaske
-            AND     R4, R0, R2
-            STRH    R4, [R7]
-            PUSH    {R0-R8, LR}
-            LDR     R0, =DelayTime
-            BL      delay
-            POP     {R0-R8, LR}
-            STRH    R3, [R6]
-            STRH    R4, [R8]
-            TST     R0, #1
-            LSR     R0, R0, #1
-            ORRNE   R0, R0, #0x8000
-step_loop
-            SUBS    R1, R1, #1
-            B       until_loop
-enddo_loop    
+
+            ; Clear LED
+            MOV	    R2, 0xFF
+            STRB    R2, [R6]
+            STRB    R2, [R8] 
+
+            LSR	    R3, R0, #8 
+            STRB    R3, [R5]
+            STRB    R0, [R7] 
+            POP {R5-R8}
             BX LR
             ENDP
-
 ;--------------------------------------------
 ; main subroutine
 ;--------------------------------------------

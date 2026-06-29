@@ -1,5 +1,5 @@
 CompileFlags:
-  CompilationDatabase: /home/huc01/Projects/ITS-BRD-VSC/Programs/LauflichtASM/out/LauflichtASM/ITSboard_Assembly/Debug
+  CompilationDatabase: /home/luc02/Projects/ITS-BRD-VSC/Programs/LauflichtASM/out/LauflichtASM/ITSboard_Assembly/Debug
   Add:
     - -include
-    - /home/huc01/Projects/ITS-BRD-VSC/Programs/LauflichtASM/out/LauflichtASM/ITSboard_Assembly/Debug/compile_macros.h
+    - /home/luc02/Projects/ITS-BRD-VSC/Programs/LauflichtASM/out/LauflichtASM/ITSboard_Assembly/Debug/compile_macros.h
