@@ -100,7 +100,7 @@ setLED PROC
             LDR	    R8, =GPIO_D_CLR 
 
             ; Clear LED
-            MOV	    R2, 0xFF
+            MOV	    R2, #0xFF
             STRB    R2, [R6]
             STRB    R2, [R8] 
 
