@@ -1,0 +1,5 @@
+CompileFlags:
+  CompilationDatabase: /home/huc01/Projects/ITS-BRD-VSC/Programs/BitCountOddASM/out/BitCountOddASM/ITSboard_Assembly/Debug
+  Add:
+    - -include
+    - /home/huc01/Projects/ITS-BRD-VSC/Programs/BitCountOddASM/out/BitCountOddASM/ITSboard_Assembly/Debug/compile_macros.h
