@@ -37,7 +37,7 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/Programs/BitCountOddASM",
+                "cwd": "${workspaceFolder}/Programs/FindMaxASM",
                 "shell": {
                     "executable": "/bin/bash",
                     "args": [
@@ -60,7 +60,7 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/Programs/BitCountOddASM",
+                "cwd": "${workspaceFolder}/Programs/FindMaxASM",
                 "shell": {
                     "executable": "/bin/bash",
                     "args": [
@@ -82,7 +82,7 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/Programs/BitCountOddASM",
+                "cwd": "${workspaceFolder}/Programs/FindMaxASM",
                 "shell": {
                     "executable": "/bin/bash",
                     "args": [
@@ -109,7 +109,7 @@
             "type": "shell",
             "command": "pyocd",
             "options": {
-                "cwd": "${workspaceFolder}/Programs/BitCountOddASM",
+                "cwd": "${workspaceFolder}/Programs/FindMaxASM",
                 "shell": {
                     "executable": "/bin/bash",
                     "args": [

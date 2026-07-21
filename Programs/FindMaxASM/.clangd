@@ -1,0 +1,5 @@
+CompileFlags:
+  CompilationDatabase: /home/luc02/Projects/ITS-BRD-VSC/Programs/FindMaxASM/out/FindMaxASM/ITSboard_Assembly/Debug
+  Add:
+    - -include
+    - /home/luc02/Projects/ITS-BRD-VSC/Programs/FindMaxASM/out/FindMaxASM/ITSboard_Assembly/Debug/compile_macros.h
