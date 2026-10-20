@@ -1,0 +1,10 @@
+CompileFlags:
+  CompilationDatabase: /home/luc02/Projects/ITS-BRD-VSC/Programs/A1W26ASM/out/A1W26ASM/ITSboard_Assembly/Debug
+
+---
+If:
+  PathMatch: .*\.(c|C|h)$
+CompileFlags:
+  Add:
+    - -include
+    - /home/luc02/Projects/ITS-BRD-VSC/Programs/A1W26ASM/out/A1W26ASM/ITSboard_Assembly/Debug/compile_macros_c.h

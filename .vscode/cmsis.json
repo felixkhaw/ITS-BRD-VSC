@@ -1,0 +1,27 @@
+{
+    "targetSet": {
+        "Programs/BitShifterASM/BitShifterASM": {
+            "activeTargetType": "ITSboard_Assembly"
+        },
+        "Programs/LauflichtASM/LauflichtASM": {
+            "activeTargetType": "ITSboard_Assembly"
+        },
+        "Programs/PrimzahlSiebASM/PrimzahlSiebASM": {
+            "activeTargetType": "ITSboard_Assembly"
+        },
+        "Programs/StoppuhrASM/StoppuhrASM": {
+            "activeTargetType": "ITSboard_Assembly"
+        },
+        "Programs/A1ASM/A1ASM": {
+            "activeTargetType": "ITSboard_Assembly"
+        },
+        "Programs/A1W26ASM/A1W26ASM": {
+            "activeTargetType": "ITSboard_Assembly"
+        },
+        "Programs/A2W26ASM/A2W26ASM": {
+            "activeTargetType": "ITSboard_Assembly"
+        }
+    },
+    "activeSolution": "../Programs/A2W26ASM/A2W26ASM.csolution.yml",
+    "activeTarget": "ITSboard_Assembly"
+}

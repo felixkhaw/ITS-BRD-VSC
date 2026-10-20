@@ -1,5 +1,10 @@
 CompileFlags:
   CompilationDatabase: /home/luc02/Projects/ITS-BRD-VSC/Programs/BitShifterASM/out/BitShifterASM/ITSboard_Assembly/Debug
+
+---
+If:
+  PathMatch: .*\.(c|C|h)$
+CompileFlags:
   Add:
     - -include
-    - /home/luc02/Projects/ITS-BRD-VSC/Programs/BitShifterASM/out/BitShifterASM/ITSboard_Assembly/Debug/compile_macros.h
+    - /home/luc02/Projects/ITS-BRD-VSC/Programs/BitShifterASM/out/BitShifterASM/ITSboard_Assembly/Debug/compile_macros_c.h
