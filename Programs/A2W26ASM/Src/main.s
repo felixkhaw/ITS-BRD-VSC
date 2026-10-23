@@ -25,12 +25,13 @@ VariableB   DCW 0x1234
 main
     BL initITSboard             ; needed by the board to setup
 ;* swap memory - Is there another, at least optimized approach?
-    ldr     R0,=VariableA   ; Anw01
-    ldrb    R2,[R0]         ; Anw02
-    ldrb    R3,[R0,#1]      ; Anw03
-    lsl     R2, #8          ; Anw04
-    orr     R2, R3          ; Anw05
-    strh    R2,[R0]         ; Anw06 
+    ldr     R0,=VariableA   ; Lädt die die Anfangsadresse vom Label VariableA
+    ldrb    R3,[R0]         ; Lädt ein Byte in R2, aus der Adresse 0x2000000c
+    ldrb    R2,[R0,#1]      ; Lädt ein Byte in R3, aus der Adresse 0x2000000c+1=0x2000000d
+    lsl     R2, #8          ; Verschiebt die Bits um 8 Stellen nach links in R2
+    orr     R2, R3          ; Wertet nach bitweisem oder R2 und R3 aus Ergebnis steht in R2
+
+    strh    R2,[R0]         ; Schreibt Inhalt von R2 an Inhalt von Adresse in R0
     
 ;* const in var
     mov     R5,#ConstByteA  ; Anw07
@@ -39,9 +40,9 @@ main
 ;* Change value from x1234 to x4321
     ldr     R1,=VariableB   ; Anw09
     ldrh    R6,[R1]         ; Anw0A
-    mov     R7, #0x30ED     ; Anw0B
-    add     R6, R6, R7      ; Anw0C
-    strh    R6,[R1]         ; Anw0D
+    mov     R7, #0x21DE     ; Ändern der Bitmaske zu 0x21DE
+    add     R6, R7          ; Nach Addition steht 0x3412 in R6
+    strh    R6,[R1]         ; Durch liddle endian steht 1234 im Speicher
     b .                     ; Anw0E
     
     ALIGN
