@@ -35,6 +35,8 @@ main
     
 ;* const in var
     mov     R5,#ConstByteA  ; Anw07
+    mov     R7, 0x4EB1
+    add     R5, R7
     strh    R5,[R0]         ; Anw08
     
 ;* Change value from x1234 to x4321
