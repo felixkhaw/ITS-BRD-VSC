@@ -35,14 +35,13 @@ main
     
 ;* const in var
     mov     R5,#ConstByteA  ; Anw07
-    mov     R7, 0x4EB1
-    add     R5, R7
+    add     R5, R5, 0x4EB1
     strh    R5,[R0]         ; Anw08
     
 ;* Change value from x1234 to x4321
     ldr     R1,=VariableB   ; Anw09
     ldrh    R6,[R1]         ; Anw0A
-    mov     R7, #0x21DE     ; Ändern der Bitmaske zu 0x21DE
+    mov     R7, #0x21DE
     add     R6, R7          ; Nach Addition steht 0x3412 in R6
     strh    R6,[R1]         ; Durch liddle endian steht 1234 im Speicher
     b .                     ; Anw0E
