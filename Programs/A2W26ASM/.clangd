@@ -1,5 +1,5 @@
 CompileFlags:
-  CompilationDatabase: /home/luc02/Projects/ITS-BRD-VSC/Programs/A2W26ASM/out/A2W26ASM/ITSboard_Assembly/Debug
+  CompilationDatabase: /home/huc01/Projects/ITS-BRD-VSC/Programs/A2W26ASM/out/A2W26ASM/ITSboard_Assembly/Debug
 
 ---
 If:
@@ -7,4 +7,4 @@ If:
 CompileFlags:
   Add:
     - -include
-    - /home/luc02/Projects/ITS-BRD-VSC/Programs/A2W26ASM/out/A2W26ASM/ITSboard_Assembly/Debug/compile_macros_c.h
+    - /home/huc01/Projects/ITS-BRD-VSC/Programs/A2W26ASM/out/A2W26ASM/ITSboard_Assembly/Debug/compile_macros_c.h

@@ -20,8 +20,11 @@
         },
         "Programs/A2W26ASM/A2W26ASM": {
             "activeTargetType": "ITSboard_Assembly"
+        },
+        "Programs/A3W26ASM/A3W26ASM": {
+            "activeTargetType": "ITSboard_Assembly"
         }
     },
-    "activeSolution": "../Programs/A2W26ASM/A2W26ASM.csolution.yml",
+    "activeSolution": "../Programs/A3W26ASM/A3W26ASM.csolution.yml",
     "activeTarget": "ITSboard_Assembly"
 }
