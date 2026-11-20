@@ -23,8 +23,11 @@
         },
         "Programs/A3W26ASM/A3W26ASM": {
             "activeTargetType": "ITSboard_Assembly"
+        },
+        "Programs/MovePixelASM/MovePixelASM": {
+            "activeTargetType": "ITSboard_Assembly"
         }
     },
-    "activeSolution": "../Programs/A3W26ASM/A3W26ASM.csolution.yml",
+    "activeSolution": "../Programs/MovePixelASM/MovePixelASM.csolution.yml",
     "activeTarget": "ITSboard_Assembly"
 }

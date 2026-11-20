@@ -35,9 +35,9 @@ main            PROC
                 bl    initITSboard                 ; HW Initialisieren
 
 ; Laden von Konstanten in Register
-                mov   r0,#0x12                      ; Schreibt 0x12 in r0
-                mov   r1,#-128                      ; Schreibt -128 in r1; -128 in Hex sind 0xffffff80
-                ldr   r2,=0x12345678                ; lädt 32 Bit Zahl über Literal Pool mit Pseudoinstruktion 
+                mov   r0,#0x12                      ; Anw-01
+                mov   r1,#-128                      ; Anw-02
+                ldr   r2,=0x12345678                ; Anw-03
 
 ; Zugriff auf Variable
                 ldr   r0,=VariableA                 ; Anw-04

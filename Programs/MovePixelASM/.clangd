@@ -1,0 +1,10 @@
+CompileFlags:
+  CompilationDatabase: /home/huc01/Projekte/ITS-BRD-VSC/Programs/MovePixelASM/out/MovePixelASM/ITSboard_Assembly/Debug
+
+---
+If:
+  PathMatch: .*\.(c|C|h)$
+CompileFlags:
+  Add:
+    - -include
+    - /home/huc01/Projekte/ITS-BRD-VSC/Programs/MovePixelASM/out/MovePixelASM/ITSboard_Assembly/Debug/compile_macros_c.h
