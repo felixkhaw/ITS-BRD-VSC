@@ -12,9 +12,9 @@
     EXTERN lcdPrintS            ;Display ausgabe
     EXTERN GUI_init
 ;	EXTERN TP_Init
-	EXTERN lcdDrawPixel
-	EXTERN lcdMovePixel
-	EXTERN lcdMoveBlock
+	IMPORT lcdDrawPixel
+	IMPORT lcdMovePixel
+	IMPORT lcdMoveBlock
 
 ;********************************************
 ; Data section, aligned on 4-byte boundery
@@ -22,10 +22,11 @@
 	
 	AREA MyData, DATA, align = 2
 	
-	    GLOBAL text
 DEFAULT_BRIGHTNESS DCW  800
 	
-text	DCB	"Hallo liebes TI-Labor (asm-project)",0
+SCHWARZ EQU 0x0000
+WEISS   EQU 0xFFFF
+ROT     EQU 0xF800
 
 ;********************************************
 ; Code section, aligned on 8-byte boundery
@@ -45,9 +46,11 @@ main	PROC
 		bl GUI_init
 		mov r0, #0x00
 ;		bl TP_Init
-		
-		LDR	r0,=text
-        BL  lcdPrintS
+		MOV  R0, #100           ; altX
+        MOV  R1, #50            ; altY
+        MOV  R2, #101           ; neuX
+        MOV  R3, #50            ; neuY
+        BL   lcdMoveBlock
 
 forever	b	forever		; nowhere to retun if main ends		
 		ENDP
